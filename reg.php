@@ -1,7 +1,5 @@
 <?php
 include 'config.php';
-
-
 if ($_POST) {
 	$email = isset($_POST['email'])? $_POST['email']:'';
 	$name = isset($_POST['name'])? $_POST['name']:'';
@@ -41,6 +39,7 @@ if ($_POST) {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>注册</title>
+<link href="/styles/global.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--<header>
@@ -53,13 +52,14 @@ if ($_POST) {
     </ul>
 </nav>
 --><span><?php if(isset($_GET['msg'])) echo $_GET['msg']; ?></span>
-<div>
+<div style="font-family:Arial, Helvetica, sans-serif;">
 <form action="" method="post">
-	<label for="email">电子邮箱: </label><input type="text" name="email" id="email" />
-    <label for="name">用户姓名: </label><input type="text" name="name" id="name" />
-    <label for="pwd">登录密码: </label><input type="password" name="pwd" id="pwd" />
-    <label for="repwd">再次输入密码: </label><input type="password" name="repwd" id="repwd" />
-    <input type="submit" value="注 册" />
+	<div class="reg-input" style="display: inline; width: 300px; background-color:#F00;"><label for="email">电子邮箱: </label></div><div style="display: inline;"><input type="text" name="email" id="email" /></div>
+    <div><label for="name">用户姓名: </label><input type="text" name="name" id="name" /></div>
+    <div><label for="pwd">登录密码: </label><input type="password" name="pwd" id="pwd" /></div>
+    <div><label for="repwd">再次输入密码: </label><input type="password" name="repwd" id="repwd" /></div>
+	<div><label for="captcha">验证码: </label><input type="text" name="captcha" id="captcha" /><img src="/captcha.php" alt="验证码" /></div>
+    <div><input type="submit" value="注 册" /></div>
 </form>
 </div>
 <!--<footer>
