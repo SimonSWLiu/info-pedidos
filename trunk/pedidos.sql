@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2010 年 11 月 04 日 02:53
+-- 生成日期: 2010 年 11 月 06 日 10:34
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -18,6 +18,26 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- 数据库: `pedidos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `cid` int(10) unsigned NOT NULL COMMENT '分类id',
+  `c_name` varchar(100) NOT NULL COMMENT '分类名称',
+  `rid` smallint(5) unsigned NOT NULL COMMENT '所属餐馆',
+  PRIMARY KEY (`cid`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表';
+
+--
+-- 转存表中的数据 `category`
+--
+
 
 -- --------------------------------------------------------
 
@@ -43,3 +63,44 @@ CREATE TABLE IF NOT EXISTS `members` (
 
 INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`) VALUES
 (1, 'benson.chen@infothinker.com', 'e10adc3949ba59abbe56e057f20f883e', '泊成', 0, 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `menu_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '菜单id',
+  `m_num` varchar(20) DEFAULT NULL COMMENT '菜式num',
+  `m_name` varchar(100) NOT NULL COMMENT '菜式名称',
+  `m_price` float NOT NULL COMMENT '价钱',
+  `m_note` varchar(255) DEFAULT NULL COMMENT '菜式备注',
+  PRIMARY KEY (`menu_id`),
+  KEY `m_name` (`m_name`,`m_price`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `menu`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `restaurant`
+--
+
+DROP TABLE IF EXISTS `restaurant`;
+CREATE TABLE IF NOT EXISTS `restaurant` (
+  `rid` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '餐馆id',
+  `r_name` varchar(100) NOT NULL COMMENT '餐馆名称',
+  PRIMARY KEY (`rid`),
+  KEY `r_name` (`r_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `restaurant`
+--
+
