@@ -11,6 +11,7 @@ if ($_POST) {
 	$sql = "SELECT * FROM members WHERE (email='$user' AND pwd='$md5_pwd') OR (name='$user' AND pwd='$md5_pwd')";
 	$result = $db->query($sql);
 	if ($result) { // 登录成功
+		header('location: /loginsuccess.php');
 		exit('login success');
 	} else { // 登录失败
 		exit('login fail');
