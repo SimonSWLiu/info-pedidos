@@ -40,6 +40,8 @@ if ($_POST) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>注册</title>
 <link href="/styles/global.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/scripts/jquery-1.4.3.js"></script>
+<script type="text/javascript" src="/scripts/global.js"></script>
 </head>
 <body>
 <!--<header>
@@ -54,7 +56,7 @@ if ($_POST) {
 --><span><?php if(isset($_GET['msg'])) echo $_GET['msg']; ?></span>
 <div style="font-family:Arial, Helvetica, sans-serif;">
 <form action="" method="post">
-	<div class="reg-input" style="display: inline; width: 300px; background-color:#F00;"><label for="email">电子邮箱: </label></div><div style="display: inline;"><input type="text" name="email" id="email" /></div>
+	<label for="email">电子邮箱: </label><input type="text" name="email" id="email" />
     <div><label for="name">用户姓名: </label><input type="text" name="name" id="name" /></div>
     <div><label for="pwd">登录密码: </label><input type="password" name="pwd" id="pwd" /></div>
     <div><label for="repwd">再次输入密码: </label><input type="password" name="repwd" id="repwd" /></div>
