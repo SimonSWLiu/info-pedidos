@@ -1,4 +1,4 @@
 <?php
-include 'dbconfig.php';
-
+include 'config.php';
+header('location: /login.php');
 ?>
