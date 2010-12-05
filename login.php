@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+if (isset($_SESSION['member'])) header('location: /loginsuccess.php');
 if ($_POST) {
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
