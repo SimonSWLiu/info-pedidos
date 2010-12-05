@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>登录成功</title>
-</head>
-<body>
+<div class="header">
+<style type="text/css">
+.header { position: absolute; top: 0; height: 30px; width: 100%; background-color: #CCC; }
+</style>
+</div>
