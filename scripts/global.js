@@ -1,9 +1,10 @@
 // JavaScript Document 中文
 window.onresize = function() {
-	$('.leftbar, .main').height($(window).height() - 30);
+	$('.leftbar, .main, .main-frame').height($(window).height() - 33);
+	$('.leftbar').height($(window).height() - 30);
 }
 
 $(function(){
-	$('.leftbar, .main').height($(window).height() - 30);
+	window.onresize();
 	$('input[type=text]').eq(0).focus();
 });
