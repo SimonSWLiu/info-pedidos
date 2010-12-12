@@ -1,4 +1,19 @@
-<?php include 'config.php'; ?>
+<?php
+include 'config.php';
+
+if ($_GET) {
+	$name = $_GET['restaurant_name'];
+	$sql = "INSERT INTO restaurant(`r_name`) VALUES('$name')";
+	$db->query($sql);
+}
+$sql = "SELECT * FROM restaurant";
+$result = $db->query($sql);
+mysqli_close($db);
+$restaurant = array();
+while($row = $result->fetch_assoc()) {
+	$restaurant[] = $row;
+}
+?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -8,6 +23,18 @@
 <script type="text/javascript" src="scripts/global.js"></script>
 </head>
 <body>
-
+<table border="1">
+	<tr>
+		<th>餐厅名</th>
+		<th>操作</th>
+	</tr>
+	<?php foreach ($restaurant as $row): ?>
+	<tr>
+		<td><?php echo $row['r_name']; ?></td>
+		<td><a href="#">编辑</a><a href="#">删除</a></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<form action="" method="get">新增 : <input type="text" name="restaurant_name" /><input type="submit" value="保存" /></form>
 </body>
 </html>
