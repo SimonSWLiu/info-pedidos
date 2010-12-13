@@ -31,7 +31,7 @@ while($row = $result->fetch_assoc()) {
 	<?php foreach ($restaurant as $row): ?>
 	<tr>
 		<td><?php echo $row['r_name']; ?></td>
-		<td><a href="#">编辑</a><a href="#">删除</a></td>
+		<td><a href="#">编辑</a><a href="#" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
 	</tr>
 	<?php endforeach; ?>
 </table>
