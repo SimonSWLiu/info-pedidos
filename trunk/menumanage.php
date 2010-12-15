@@ -23,7 +23,7 @@ while($row = $result->fetch_assoc()) {
 <script type="text/javascript" src="scripts/global.js"></script>
 </head>
 <body>
-<div>
+<div class="restaurant-div">
 	<table border="1">
 		<tr>
 			<th>餐厅名</th>
@@ -31,26 +31,14 @@ while($row = $result->fetch_assoc()) {
 		</tr>
 		<?php foreach ($restaurant as $row): ?>
 		<tr>
-			<td><a href="#" class="rname"><?php echo $row['r_name']; ?></a></td>
+			<td><a href="#" class="rname" rid="<?php echo $row['rid']; ?>"><?php echo $row['r_name']; ?></a></td>
 			<td><a href="#">修改</a><a href="#" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</table>
 	<form action="" method="get">新增 : <input type="text" name="restaurant_name" /><input type="submit" value="保存" /></form>
 </div>
-<div class="category">
-	<table border="1">
-		<tr>
-			<th>类别</th>
-			<th>操作</th>
-		</tr>
-		<?php foreach (): ?>
-		<tr>
-			<td><a href="#" class="category-name"></a></td>
-			<td><a href="#">修改</a><a href="#">删除</a></td>
-		</tr>
-		<?php endforeach; ?>
-	</table>
+<div id="category">
 </div>
 </body>
 </html>

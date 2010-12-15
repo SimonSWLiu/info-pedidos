@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2010 年 11 月 06 日 10:34
+-- 生成日期: 2010 年 12 月 15 日 15:36
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -27,17 +27,20 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `cid` int(10) unsigned NOT NULL COMMENT '分类id',
+  `cid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `c_name` varchar(100) NOT NULL COMMENT '分类名称',
   `rid` smallint(5) unsigned NOT NULL COMMENT '所属餐馆',
   PRIMARY KEY (`cid`),
   KEY `rid` (`rid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `category`
 --
 
+INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
+(1, '12', 6),
+(2, '套餐', 1);
 
 -- --------------------------------------------------------
 
@@ -55,14 +58,15 @@ CREATE TABLE IF NOT EXISTS `members` (
   `level` tinyint(1) unsigned NOT NULL DEFAULT '3' COMMENT '权限：1：su；2：admin；3：普通会员',
   PRIMARY KEY (`mid`),
   KEY `email` (`email`,`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户信息表' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户信息表' AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `members`
 --
 
 INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`) VALUES
-(1, 'benson.chen@infothinker.com', 'e10adc3949ba59abbe56e057f20f883e', '泊成', 0, 3);
+(1, 'benson.chen@infothinker.com', 'e10adc3949ba59abbe56e057f20f883e', 'admin', 0, 3),
+(2, 'benson.rc86@gmail.com', '13550d8cf326289a5f7e368869b1be72', 'benson', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -98,9 +102,17 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `r_name` varchar(100) NOT NULL COMMENT '餐馆名称',
   PRIMARY KEY (`rid`),
   KEY `r_name` (`r_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=15 ;
 
 --
 -- 转存表中的数据 `restaurant`
 --
 
+INSERT INTO `restaurant` (`rid`, `r_name`) VALUES
+(1, '大西豪'),
+(2, '华辉'),
+(7, 'test1'),
+(6, '表叔'),
+(8, 'test2'),
+(9, 'test3'),
+(10, 'test4');
