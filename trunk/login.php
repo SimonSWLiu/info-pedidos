@@ -1,7 +1,13 @@
 <?php
 include 'config.php';
-if (isset($_SESSION['member'])) header('location: /loginsuccess.php');
+if (isset($_SESSION['login'])) header('location: /loginsuccess.php');
+//if (isset($_SESSION['login'])) {
+//	echo '<br />';
+//	exit('success');
+//}
+//else exit('fail');
 if ($_POST) {
+	exit('test');
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
 	if ($user == '' || $pwd == '') {
@@ -15,7 +21,7 @@ if ($_POST) {
 	if ($result) { // 登录成功
 		// 写入session
 		$row = $result->fetch_assoc();
-		$_SESSION['member'] = array('mid'=>$row['mid'], 'email'=>$row['email'], 'name'=>$row['name'], 'status'=>$row['status'], 'level'=>$row['level']);
+		$_SESSION['login'] = array('mid'=>$row['mid'], 'email'=>$row['email'], 'name'=>$row['name'], 'status'=>$row['status'], 'level'=>$row['level']);
 		header('location: /loginsuccess.php');
 		exit('login success');
 	} else { // 登录失败
