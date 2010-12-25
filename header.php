@@ -6,7 +6,7 @@ li { list-style: none; }
 .herizontal-list li { float: right; padding: 2px 5px; }
 </style>
 <ul class="herizontal-list">
-	<li><a href="/signout.php">退出</a></li>
-	<li>欢迎，<?php echo $_SESSION['member']['name']; ?></li>
+	<li><a href="/logout.php">退出</a></li>
+	<li>欢迎，<?php echo $_SESSION['login']['name']; ?></li>
 </ul>
 </div>
