@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>点餐</title>
-<link href="/styles/global.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/scripts/jquery-1.4.3.js"></script>
+<title>Pedidos - 点餐系统</title>
+<link type="text/css" rel="stylesheet" href="styles/global.css" />
+<link type="/images/x-icon" rel="shortcut icon" href="/images/favicon.ico" />
 </head>
 <body>
-<?php include '/nav.php'; ?>
-<?php include '/leftbar.php'; ?>
+<?php include 'header.php'; ?>
+<?php include 'leftbar.php'; ?>
+<?php include 'main.php'; ?>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/global.js"></script>
 </body>
 </html>

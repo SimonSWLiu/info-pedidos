@@ -1,4 +1,6 @@
 <?php
+// 生成验证码
+
 // session_save_path('./tmp/sessions');
 session_start();
 header('Content-type: image/png'); 

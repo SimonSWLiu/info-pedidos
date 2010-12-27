@@ -1,4 +1,5 @@
 <?php
+// 菜单管理页面
 include 'config.php';
 
 if ($_GET) {
@@ -31,8 +32,8 @@ while($row = $result->fetch_assoc()) {
 		</tr>
 		<?php foreach ($restaurant as $row): ?>
 		<tr>
-			<td><a href="#" class="rname" rid="<?php echo $row['rid']; ?>"><?php echo $row['r_name']; ?></a></td>
-			<td><a href="#">修改</a><a href="#" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
+			<td><a href="editrestaurant.php?rid=<?php echo $row['rid']; ?>" rid="<?php echo $row['rid']; ?>"><?php echo $row['r_name']; ?></a></td>
+			<td><a href="#" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</table>

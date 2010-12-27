@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-if (isset($_SESSION['login'])) header('location: /loginsuccess.php');
+if (isset($_SESSION['login'])) header('location: /pedidos.php');
 //if (isset($_SESSION['login'])) {
 //	echo '<br />';
 //	exit('success');
@@ -21,7 +21,7 @@ if ($_POST) {
 		// 写入session
 		$row = $result->fetch_assoc();
 		$_SESSION['login'] = array('mid'=>$row['mid'], 'email'=>$row['email'], 'name'=>$row['name'], 'status'=>$row['status'], 'level'=>$row['level']);
-		header('location: /loginsuccess.php');
+		header('location: /pedidos.php');
 		exit('login success');
 	} else { // 登录失败
 		exit('login fail');
