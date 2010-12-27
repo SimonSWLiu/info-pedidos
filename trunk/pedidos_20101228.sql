@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2010 年 12 月 25 日 17:22
+-- 生成日期: 2010 年 12 月 27 日 16:41
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `rid` smallint(5) unsigned NOT NULL COMMENT '所属餐馆',
   PRIMARY KEY (`cid`),
   KEY `rid` (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `category`
@@ -40,7 +40,9 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
 (1, '12', 6),
-(2, '套餐', 1);
+(2, '套餐', 1),
+(3, 'test', 1),
+(4, 'abc', 1);
 
 -- --------------------------------------------------------
 
@@ -114,5 +116,4 @@ INSERT INTO `restaurant` (`rid`, `r_name`) VALUES
 (7, 'test1'),
 (6, '表叔'),
 (8, 'test2'),
-(9, 'test3'),
 (10, 'test4');
