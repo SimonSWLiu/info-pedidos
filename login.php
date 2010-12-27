@@ -7,7 +7,6 @@ if (isset($_SESSION['login'])) header('location: /loginsuccess.php');
 //}
 //else exit('fail');
 if ($_POST) {
-	exit('test');
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
 	if ($user == '' || $pwd == '') {
