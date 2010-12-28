@@ -1,7 +1,7 @@
 <?php
 // 菜单管理页面
 include 'config.php';
-
+include 'db.php';
 if ($_GET) {
 	$name = $_GET['restaurant_name'];
 	$sql = "INSERT INTO restaurant(`r_name`) VALUES('$name')";

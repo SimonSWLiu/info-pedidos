@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+include 'db.php';
 if ($_GET) {
 	$rid = $_GET['rid'];
 	$sql = "SELECT * FROM category WHERE rid='$rid'";
