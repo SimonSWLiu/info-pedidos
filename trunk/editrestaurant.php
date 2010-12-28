@@ -1,6 +1,7 @@
 <?php
 // 编辑餐馆信息
 include 'config.php';
+include 'db.php';
 if ($_POST) {
 	$rName = $_POST['rName'];
 	$rId = $_POST['rId'];
@@ -37,7 +38,7 @@ mysqli_close($db);
 	<table border="1">
 	<?php foreach ($cat_arr as $row): ?>
 		<tr>
-			<td><?php echo $row['c_name']; ?></td>
+			<td><a href="getmenus.php?cid=<?php echo $row['cid']; ?>"><?php echo $row['c_name']; ?></a></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>

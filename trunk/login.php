@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+include 'db.php';
 if (isset($_SESSION['login'])) header('location: /pedidos.php');
 //if (isset($_SESSION['login'])) {
 //	echo '<br />';

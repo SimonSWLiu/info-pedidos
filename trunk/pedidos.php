@@ -1,3 +1,4 @@
+<?php include 'config.php'; include 'db.php'; ?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

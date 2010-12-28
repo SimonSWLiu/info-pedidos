@@ -1,5 +1,7 @@
 <?php
+// 增加类别
 include 'config.php';
+include 'db.php';
 if ($_GET) {
 	$rid = $_GET['rid'];
 	$category_name = $_GET['category_name'];
