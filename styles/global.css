@@ -1,8 +1,11 @@
 @charset "utf-8";
 /* CSS Document */
-* {margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;}
+* {margin: 0; padding: 0; font: 16px/16px Arial, Helvetica, sans-serif; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-.leftbar { position: absolute; left: 0; top: 30px; width: 200px; background-color: #F00; height: 570px; }
+.leftbar { position: absolute; left: 0; top: 30px; width: 200px; background-color: #00F; height: 570px; }
+.leftbar a { color: #FFF; font-size: 20px; text-decoration: none; }
 
 .header { position: absolute; top: 0; height: 30px; width: 100%; background-color: #CCC; }
 ul { margin: 0; padding: 0; }
@@ -14,5 +17,5 @@ li { list-style: none; }
 
 body { overflow: hidden; }
 .reg-input {width: 3000px;}
-.login-win {}
+.login-win { width: 250px; margin: auto; }
 /*.login-win input { border: solid 1px #F00; }*/
