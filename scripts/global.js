@@ -30,3 +30,37 @@ $(function(){
 		});
 	});
 });
+
+/**
+ * 左边栏的js处理
+ */
+ // 单击“我的账户”
+$('#myAccount').click(function() {
+	$(this).find('ul').stop(true, true);
+	$(this).find('ul').slideToggle();
+	return false;
+});
+
+$('#changePwd').click(function(event) {
+	event.stopPropagation();
+});
+
+$('#myBalance').click(function(event) {
+	event.stopPropagation();
+});
+
+$('#recharge').click(function(event) {
+	event.stopPropagation();
+});
+
+$('#orderHistory').click(function(event) {
+	event.stopPropagation();
+});
+
+
+
+
+
+
+
+

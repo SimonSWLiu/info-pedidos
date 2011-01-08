@@ -5,11 +5,13 @@ a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 .leftbar { position: absolute; left: 0; top: 30px; width: 200px; background-color: #00F; height: 570px; }
-.leftbar a { color: #FFF; font-size: 20px; text-decoration: none; }
+.leftbar a { color: #FFF; font-size: 14px; text-decoration: none; display: block; }
+.leftbar a:hover { background-color: #F00; }
+
 
 .header { position: absolute; top: 0; height: 30px; width: 100%; background-color: #CCC; }
 ul { margin: 0; padding: 0; }
-li { list-style: none; }
+li { line-height: 18px; list-style: none outside none; padding: 2px 5px; }
 .herizontal-list li { float: right; padding: 2px 5px; }
 
 .main { position: relative; margin-left: 200px; margin-top: 30px; height: 570px; width: auto; }
@@ -17,5 +19,5 @@ li { list-style: none; }
 
 body { overflow: hidden; }
 .reg-input {width: 3000px;}
-.login-win { width: 250px; margin: auto; }
+.login-win { margin: auto; padding: 100px 0 0; width: 250px; }
 /*.login-win input { border: solid 1px #F00; }*/
