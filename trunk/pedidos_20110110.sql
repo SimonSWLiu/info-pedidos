@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2010 年 12 月 28 日 16:41
+-- 生成日期: 2011 年 01 月 09 日 17:16
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -25,7 +25,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 表的结构 `category`
 --
 
-DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `cid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `c_name` varchar(100) NOT NULL COMMENT '分类名称',
@@ -50,7 +49,6 @@ INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
 -- 表的结构 `members`
 --
 
-DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
   `mid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `email` varchar(50) NOT NULL COMMENT '用户email',
@@ -58,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `name` varchar(30) NOT NULL COMMENT '用户名称',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '用户状态：0：未通过；1：通过',
   `level` tinyint(1) unsigned NOT NULL DEFAULT '3' COMMENT '权限：1：su；2：admin；3：普通会员',
+  `balance` float NOT NULL DEFAULT '0' COMMENT '用户余额',
   PRIMARY KEY (`mid`),
   KEY `email` (`email`,`name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户信息表' AUTO_INCREMENT=3 ;
@@ -66,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- 转存表中的数据 `members`
 --
 
-INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`) VALUES
-(1, 'benson.chen@infothinker.com', 'e10adc3949ba59abbe56e057f20f883e', 'admin', 0, 3),
-(2, 'benson.rc86@gmail.com', '13550d8cf326289a5f7e368869b1be72', 'benson', 0, 3);
+INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`, `balance`) VALUES
+(1, 'benson.chen@infothinker.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 3, 0),
+(2, 'benson.rc86@gmail.com', '13550d8cf326289a5f7e368869b1be72', 'benson', 0, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -76,7 +75,6 @@ INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`) VALUES
 -- 表的结构 `menu`
 --
 
-DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `menu_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '菜单id',
   `m_num` varchar(20) NOT NULL DEFAULT '' COMMENT '菜式num',
@@ -87,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`menu_id`),
   KEY `m_name` (`m_name`,`m_price`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -95,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `menu` (
 
 INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`) VALUES
 (1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2),
-(2, '', '老娘叉烧', 23, '老娘叉烧', 2);
+(2, '', '老娘叉烧', 23, '老娘叉烧', 2),
+(3, '', 'aa', 12, '12', 3);
 
 -- --------------------------------------------------------
 
@@ -103,7 +102,6 @@ INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`)
 -- 表的结构 `restaurant`
 --
 
-DROP TABLE IF EXISTS `restaurant`;
 CREATE TABLE IF NOT EXISTS `restaurant` (
   `rid` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '餐馆id',
   `r_name` varchar(100) NOT NULL COMMENT '餐馆名称',
