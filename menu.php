@@ -1,4 +1,14 @@
-<?php include 'config.php'; ?>
+<?php 
+include 'config.php';
+include 'db.php';
+$sql = "SELECT * FROM restaurant";
+$result = $db->query($sql);
+while(($row = $result->fetch_assoc()) == true) {
+	$rest[$row['rid']] = $row['r_name'];
+}
+unset($row);
+mysqli_close($db);
+?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,6 +19,11 @@
 </head>
 <body>
 <div>
+	<ul>
+	<?php foreach ($rest as $key=>$row): ?>
+		<li><?php echo $row; ?></li>
+	<?php endforeach; ?>
+	</ul>
 </div>
 </body>
 </html>
