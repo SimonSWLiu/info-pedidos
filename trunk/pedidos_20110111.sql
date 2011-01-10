@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 01 月 09 日 17:16
+-- 生成日期: 2011 年 01 月 10 日 16:30
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -95,6 +95,30 @@ INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`)
 (1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2),
 (2, '', '老娘叉烧', 23, '老娘叉烧', 2),
 (3, '', 'aa', 12, '12', 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `pedidos_log`
+--
+
+CREATE TABLE IF NOT EXISTS `pedidos_log` (
+  `log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志id',
+  `mid` int(10) unsigned NOT NULL COMMENT '用户id',
+  `edit_time` int(10) unsigned NOT NULL COMMENT '日志录入时间',
+  `dish_name` varchar(100) NOT NULL COMMENT '菜式名',
+  `unit_price` float NOT NULL COMMENT '单价',
+  `dish_count` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '数量',
+  `total_price` float NOT NULL COMMENT '总价',
+  `note` text NOT NULL COMMENT '备注',
+  PRIMARY KEY (`log_id`),
+  KEY `mid` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- 转存表中的数据 `pedidos_log`
+--
+
 
 -- --------------------------------------------------------
 
