@@ -20,7 +20,8 @@ if ($_POST) {
 		header('location: /pedidos.php');
 		exit('login success');
 	} else {
-		exit('login fail');
+		$msg = '用户名或密码错误';
+		header('location: /login.php?msg=' . $msg);
 	}
 }
 ?>
@@ -38,7 +39,7 @@ if ($_POST) {
 	<form action="" method="post">
 		<label for="user">用户名: </label><br /><input type="text" name="user" id="user" /><br />
 		<label for="user">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
-		<input type="checkbox" /><label for="remember">下次记住我</label><br />
+		<input type="checkbox" id="remember" /><label for="remember">下次记住我</label><br />
 		<input type="submit" value="登 录" />
 	</form>
 </div>
