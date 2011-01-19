@@ -43,6 +43,7 @@ mysqli_close($db);
 	<?php foreach ($cat_arr as $row): ?>
 		<tr>
 			<td><a href="getmenus.php?cid=<?php echo $row['cid']; ?>"><?php echo $row['c_name']; ?></a></td>
+			<td><a href="">删除</a></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
