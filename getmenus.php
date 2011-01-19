@@ -38,11 +38,17 @@ if ($_GET) {
 <div><?php echo $rName; ?> --> <?php echo $catName; ?></div>
 <div>
 	<table border="1">
+		<tr>
+			<th>菜式</th>
+			<th>单价</th>
+			<th>说明</th>
+			<th>操作</th>
 		<?php foreach ($menus as $row): ?>
 		<tr>
 			<td><?php echo $row['m_name']; ?></td>
 			<td><?php echo $row['m_price']; ?></td>
 			<td><?php echo $row['m_note']; ?></td>
+			<td><a href="editmenu.php?menuid=<?php echo $row['menu_id']; ?>">编辑</a> <a href="delmenu.php?menuid=<?php echo $row['menu_id']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</table>

@@ -36,6 +36,10 @@ mysqli_close($db);
 </div>
 <div id="category">
 	<table border="1">
+		<tr>
+			<th>分类</th>
+			<th>操作</th>
+		</tr>
 	<?php foreach ($cat_arr as $row): ?>
 		<tr>
 			<td><a href="getmenus.php?cid=<?php echo $row['cid']; ?>"><?php echo $row['c_name']; ?></a></td>

@@ -4,8 +4,14 @@ include 'config.php';
 include 'db.php';
 if ($_GET) {
 	$name = $_GET['restaurant_name'];
+	$sql = "SELECT COUNT(*) FROM restaurant WHERE `r_name`='$name'";
+	$result = $db->query($sql);
+	$row = $result->fetch_assoc();
+	if ($row['COUNT(*)'] > 0) exit('该餐厅名已存在');
+	unset($result);
 	$sql = "INSERT INTO restaurant(`r_name`) VALUES('$name')";
-	$db->query($sql);
+	$row_affected = $db->query($sql);
+	if ($row_affected == 0) exit('操作失败');
 }
 $sql = "SELECT * FROM restaurant";
 $result = $db->query($sql);
@@ -33,7 +39,7 @@ while($row = $result->fetch_assoc()) {
 		<?php foreach ($restaurant as $row): ?>
 		<tr>
 			<td><a href="editrestaurant.php?rid=<?php echo $row['rid']; ?>" rid="<?php echo $row['rid']; ?>"><?php echo $row['r_name']; ?></a></td>
-			<td><a href="#" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
+			<td><a href="delr.php?restaurant=<?php echo $row['rid']; ?>" class="del-restaurant" rid="<?php echo $row['rid']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</table>

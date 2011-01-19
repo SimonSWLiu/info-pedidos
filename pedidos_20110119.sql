@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 01 月 10 日 16:30
+-- 生成日期: 2011 年 01 月 18 日 16:27
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -25,6 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 表的结构 `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `cid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `c_name` varchar(100) NOT NULL COMMENT '分类名称',
@@ -49,6 +50,7 @@ INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
 -- 表的结构 `members`
 --
 
+DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
   `mid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `email` varchar(50) NOT NULL COMMENT '用户email',
@@ -75,6 +77,7 @@ INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`, `balanc
 -- 表的结构 `menu`
 --
 
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `menu_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '菜单id',
   `m_num` varchar(20) NOT NULL DEFAULT '' COMMENT '菜式num',
@@ -82,19 +85,22 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `m_price` float NOT NULL COMMENT '价钱',
   `m_note` varchar(255) NOT NULL DEFAULT '' COMMENT '菜式备注',
   `cat_id` int(10) unsigned NOT NULL COMMENT '类别id',
+  `restaurant_id` int(10) unsigned NOT NULL COMMENT '该菜色所属餐馆的id',
   PRIMARY KEY (`menu_id`),
   KEY `m_name` (`m_name`,`m_price`),
-  KEY `cat_id` (`cat_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=4 ;
+  KEY `cat_id` (`cat_id`),
+  KEY `restaurant_id` (`restaurant_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `menu`
 --
 
-INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`) VALUES
-(1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2),
-(2, '', '老娘叉烧', 23, '老娘叉烧', 2),
-(3, '', 'aa', 12, '12', 3);
+INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`, `restaurant_id`) VALUES
+(1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2, 0),
+(2, '', '老娘叉烧', 23, '老娘叉烧', 2, 0),
+(3, '', 'aa', 12, '12', 3, 0),
+(5, '', '蝴蝶骨套餐', 989, 'pp', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -102,6 +108,7 @@ INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`)
 -- 表的结构 `pedidos_log`
 --
 
+DROP TABLE IF EXISTS `pedidos_log`;
 CREATE TABLE IF NOT EXISTS `pedidos_log` (
   `log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志id',
   `mid` int(10) unsigned NOT NULL COMMENT '用户id',
@@ -126,12 +133,13 @@ CREATE TABLE IF NOT EXISTS `pedidos_log` (
 -- 表的结构 `restaurant`
 --
 
+DROP TABLE IF EXISTS `restaurant`;
 CREATE TABLE IF NOT EXISTS `restaurant` (
   `rid` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '餐馆id',
   `r_name` varchar(100) NOT NULL COMMENT '餐馆名称',
   PRIMARY KEY (`rid`),
   KEY `r_name` (`r_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=30 ;
 
 --
 -- 转存表中的数据 `restaurant`
@@ -140,8 +148,8 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 INSERT INTO `restaurant` (`rid`, `r_name`) VALUES
 (1, '大西豪'),
 (2, '华辉'),
-(7, 'test1'),
 (6, '表叔'),
 (8, 'test2'),
 (15, '猪杂'),
-(10, 'test4');
+(28, 'test3'),
+(29, '77');
