@@ -3,9 +3,10 @@ include 'config.php';
 include 'db.php';
 if ($_GET) {
 	$cid = $_GET['cid'];
-	$sql = "SELECT c_name,r_name FROM restaurant,category WHERE category.rid=restaurant.rid AND cid='$cid'";
+	$sql = "SELECT c_name,r_name,category.rid FROM restaurant,category WHERE category.rid=restaurant.rid AND cid='$cid'";
 	$result = $db->query($sql);
 	$detail = $result->fetch_assoc();
+	$rid = $detail['rid'];
 	$rName = $detail['r_name'];
 	$catName = $detail['c_name'];
 	unset($result);
@@ -36,6 +37,11 @@ if ($_GET) {
 </head>
 <body>
 <div><?php echo $rName; ?> --> <?php echo $catName; ?></div>
+<form action="editcat.php" method="post">
+	<input type="hidden" name="cid" value="<?php echo $cid; ?>" />
+	类别：<input type="text" name="category" value="<?php echo $catName; ?>" />
+	<input type="submit" value="修改" />
+</form>
 <div>
 	<table border="1">
 		<tr>
@@ -56,6 +62,7 @@ if ($_GET) {
 <div>新增</div>
 <form action="addmenu.php" method="post">
 	<input type="hidden" name="catId" value="<?php echo $cid; ?>" />
+	<input type="hidden" name="rid" value="<?php echo $rid; ?>" />
 	<label for="mName">菜式名称：</label><input type="text" name="mName" />
 	<label for="mName">菜式价钱：</label><input type="text" name="mPrice" />
 	<label for="mName">菜式介绍：</label><input type="text" name="mNote" />

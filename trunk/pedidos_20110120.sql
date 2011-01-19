@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 01 月 18 日 16:27
+-- 生成日期: 2011 年 01 月 19 日 16:28
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
-(1, '12', 6),
+(1, '127555', 6),
 (2, '套餐', 1),
 (3, 'test', 1),
 (4, 'abc', 1);
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `m_name` (`m_name`,`m_price`),
   KEY `cat_id` (`cat_id`),
   KEY `restaurant_id` (`restaurant_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `menu`
@@ -100,7 +100,8 @@ INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`,
 (1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2, 0),
 (2, '', '老娘叉烧', 23, '老娘叉烧', 2, 0),
 (3, '', 'aa', 12, '12', 3, 0),
-(5, '', '蝴蝶骨套餐', 989, 'pp', 1, 0);
+(5, '', '蝴蝶骨套餐', 989, 'pp', 1, 0),
+(6, '', 'rt', 55, 'rt', 1, 6);
 
 -- --------------------------------------------------------
 

@@ -6,7 +6,8 @@ if ($_POST) {
 	$mPrice = $_POST['mPrice'];
 	$mNote = $_POST['mNote'];
 	$catId = $_POST['catId'];
-	$sql = "INSERT INTO menu(m_name,m_price,m_note,cat_id) VALUE('$mName','$mPrice','$mNote','$catId')";
+	$rid = $_POST['rid'];
+	$sql = "INSERT INTO menu(m_name,m_price,m_note,cat_id,restaurant_id) VALUES('$mName','$mPrice','$mNote','$catId','$rid')";
 	$result = $db->query($sql);
 	mysqli_close($db);
 	header('location:getmenus.php?cid=' . $catId);
