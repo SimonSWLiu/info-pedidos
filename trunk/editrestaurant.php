@@ -43,11 +43,16 @@ mysqli_close($db);
 	<?php foreach ($cat_arr as $row): ?>
 		<tr>
 			<td><a href="getmenus.php?cid=<?php echo $row['cid']; ?>"><?php echo $row['c_name']; ?></a></td>
-			<td><a href="">删除</a></td>
+			<td><a href="delcat.php?cid=<?php echo $row['cid']; ?>">删除</a></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 </div>
+<form action="/addcategory.php" method="get">
+	新增分类 : <input type="text" name="category_name" />
+	<input type="hidden" name="rid" value="<?php echo $rid; ?>" />
+	<input type="submit" value="保存" />
+</form>
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 </body>

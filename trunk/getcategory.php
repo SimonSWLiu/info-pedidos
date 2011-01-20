@@ -25,5 +25,9 @@ if ($_GET) {
 		</tr>
 		<?php endforeach; ?>
 	</table>
-	<form action="/addcategory.php" method="get">新增 : <input type="text" name="category_name" /><input type="hidden" name="rid" value="<?php echo $rid; ?>" /><input type="submit" value="保存" /></form>
+	<form action="/addcategory.php" method="get">
+		新增 : <input type="text" name="category_name" />
+		<input type="hidden" name="rid" value="<?php echo $rid; ?>" />
+		<input type="submit" value="保存" />
+	</form>
 </div>
