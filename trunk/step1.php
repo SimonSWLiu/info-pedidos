@@ -6,15 +6,9 @@ while ($row = $result->fetch_assoc()) {
 	$restaurants[] = $row;
 }
 ?>
+<h1>第一步</h1>
 <div>
-	<table border="1">
-		<tr>
-			<th>餐厅名</th>
-		</tr>
-		<?php foreach ($restaurants as $row): ?>
-		<tr>
-			<td><?php echo $row['r_name']; ?></td>
-		</tr>
-		<?php endforeach; ?>
-	</table>
+<?php foreach ($restaurants as $row): ?>
+<h3><?php echo $row['r_name']; ?> <span style="margin-left: 10px;"><a href="?step=2&rid=<?php echo $row['rid']; ?>">--></a></span></h3>
+<?php endforeach; ?>
 </div>

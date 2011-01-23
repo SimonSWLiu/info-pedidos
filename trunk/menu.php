@@ -7,7 +7,6 @@ while(($row = $result->fetch_assoc()) == true) {
 	$rest[$row['rid']] = $row['r_name'];
 }
 unset($row);
-mysqli_close($db);
 ?>
 <!DOCTYPE html>
 <head>
@@ -36,3 +35,6 @@ mysqli_close($db);
 <script type="text/javascript" src="scripts/global.js"></script>
 </body>
 </html>
+<?php
+mysqli_close($db);
+?>
