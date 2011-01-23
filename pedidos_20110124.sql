@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 01 月 23 日 05:59
+-- 生成日期: 2011 年 01 月 23 日 17:34
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 --
 
 INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`, `balance`) VALUES
-(1, 'benson.chen@infothinker.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 3, 0),
+(1, 'benson.chen@infothinker.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 1, 0),
 (2, 'benson.rc86@gmail.com', '13550d8cf326289a5f7e368869b1be72', 'benson', 0, 3, 0);
 
 -- --------------------------------------------------------
@@ -111,11 +111,17 @@ CREATE TABLE IF NOT EXISTS `pedidos_log` (
   `log_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志id',
   `mid` int(10) unsigned NOT NULL COMMENT '用户id',
   `edit_time` int(10) unsigned NOT NULL COMMENT '日志录入时间',
+  `rid` int(10) unsigned NOT NULL COMMENT '餐厅id',
+  `r_name` varchar(100) NOT NULL DEFAULT '' COMMENT '餐厅名',
+  `cid` int(10) unsigned NOT NULL COMMENT '类别id',
+  `c_name` varchar(100) NOT NULL DEFAULT '' COMMENT '类别名',
+  `menu_id` int(10) unsigned NOT NULL COMMENT '菜单id',
   `dish_name` varchar(100) NOT NULL COMMENT '菜式名',
   `unit_price` float NOT NULL COMMENT '单价',
   `dish_count` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '数量',
   `total_price` float NOT NULL COMMENT '总价',
   `note` text NOT NULL COMMENT '备注',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '订单状态：0：未处理；1、通过；2、不通过',
   PRIMARY KEY (`log_id`),
   KEY `mid` (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
