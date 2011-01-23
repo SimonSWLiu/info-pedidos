@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 01 月 19 日 16:28
+-- 生成日期: 2011 年 01 月 23 日 05:59
 -- 服务器版本: 5.1.39
 -- PHP 版本: 5.3.1
 
@@ -32,17 +32,18 @@ CREATE TABLE IF NOT EXISTS `category` (
   `rid` smallint(5) unsigned NOT NULL COMMENT '所属餐馆',
   PRIMARY KEY (`cid`),
   KEY `rid` (`rid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `category`
 --
 
 INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
-(1, '127555', 6),
-(2, '套餐', 1),
-(3, 'test', 1),
-(4, 'abc', 1);
+(1, '套餐', 1),
+(2, '单品', 1),
+(5, '早餐', 1),
+(4, '汤水', 1),
+(6, '粥粉', 1);
 
 -- --------------------------------------------------------
 
@@ -90,18 +91,14 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `m_name` (`m_name`,`m_price`),
   KEY `cat_id` (`cat_id`),
   KEY `restaurant_id` (`restaurant_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `menu`
 --
 
 INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`, `restaurant_id`) VALUES
-(1, '', '蝴蝶骨套餐', 21, '蝴蝶骨+薯条+饭', 2, 0),
-(2, '', '老娘叉烧', 23, '老娘叉烧', 2, 0),
-(3, '', 'aa', 12, '12', 3, 0),
-(5, '', '蝴蝶骨套餐', 989, 'pp', 1, 0),
-(6, '', 'rt', 55, 'rt', 1, 6);
+(1, '', '玉燕饺米线', 15, '小', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -140,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `r_name` varchar(100) NOT NULL COMMENT '餐馆名称',
   PRIMARY KEY (`rid`),
   KEY `r_name` (`r_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=30 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `restaurant`
@@ -149,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 INSERT INTO `restaurant` (`rid`, `r_name`) VALUES
 (1, '大西豪'),
 (2, '华辉'),
-(6, '表叔'),
-(8, 'test2'),
-(15, '猪杂'),
-(28, 'test3'),
-(29, '77');
+(3, '生辉美食'),
+(4, '大家乐'),
+(5, '肯德基'),
+(6, '必胜客'),
+(7, '麦当劳');

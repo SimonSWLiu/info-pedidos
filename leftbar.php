@@ -1,7 +1,7 @@
 <!--左边栏-->
 <div class="leftbar">
 <ul>
-	<li><a href="menu.php" target="main_frame">点餐</a></li>
+	<li><a href="menu.php?step=1" target="main_frame">点餐</a></li>
 	<li id="myAccount">
 		<a href="myaccount.php" target="main_frame">我的账户</a>
 		<ul style="display: none;">
