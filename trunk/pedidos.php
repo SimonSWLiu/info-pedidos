@@ -12,6 +12,7 @@ $level = $_SESSION['login']['level'];
 </head>
 <body>
 <?php include 'header.php'; ?>
+<?php include 'list.php'; ?>
 <?php include 'leftbar.php'; ?>
 <?php include 'main.php'; ?>
 <script type="text/javascript" src="scripts/jquery.js"></script>
