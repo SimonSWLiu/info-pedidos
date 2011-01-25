@@ -19,7 +19,7 @@ if ($list) {
 ?>
 <div style="float: right;">
 	<div>我的餐单</div>
-	<form>
+	<form method="post" action="">
 		<table>
 			<tr>
 				<td>菜名</td>
@@ -29,6 +29,7 @@ if ($list) {
 		<?php 
 		if ($list):
 			foreach ($pedidos as $row): ?>
+			<input type="hidden" name="menu" value="<?php echo $row['menu_id'] . ':' . $count[$row['menu_id']]; ?>" />
 			<tr>
 				<td><?php echo $row['m_name']; ?></td>
 				<td><?php echo $count[$row['menu_id']]; ?></td>
