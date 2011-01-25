@@ -1,6 +1,17 @@
 <?php 
 include 'config.php';
 include 'db.php';
+if ($_POST) {
+	$menuArr = $_POST['menu'];
+	foreach ($menuArr as $row) {
+		$logArr = explode(':', $row);
+		$menu_id = $logArr[0];
+		$count = $logArr[1];
+		$sql = "INSERT INTO pedidos_log(mid,edit_time,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
+						VALUES()";
+		$result = $db->query($sql);
+	}
+}
 $level = $_SESSION['login']['level'];
 ?>
 <!DOCTYPE html>
@@ -12,7 +23,6 @@ $level = $_SESSION['login']['level'];
 </head>
 <body>
 <?php include 'header.php'; ?>
-<?php include 'list.php'; ?>
 <?php include 'leftbar.php'; ?>
 <?php include 'main.php'; ?>
 <script type="text/javascript" src="scripts/jquery.js"></script>
