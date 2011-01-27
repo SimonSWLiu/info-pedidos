@@ -7,7 +7,10 @@ while($row = $result->fetch_assoc()) {
 	$category[] = $row;
 }
 ?>
-<h1>第二步</h1>
+<h2>2.类别</h2>
+<ul>
 <?php foreach ($category as $row): ?>
-<h3><?php echo $row['c_name']; ?> <span style="margin-left: 10px"><a href="?step=3&cid=<?php echo $row['cid']; ?>">--></a></span></h3>
+<!--<h3><?php echo $row['c_name']; ?> <span style="margin-left: 10px"><a href="?step=3&cid=<?php echo $row['cid']; ?>"></a></span></h3>-->
+	<li><span><?php echo $row['c_name']; ?></span><input type="button" value="进入" onclick="window.location = '?step=3&cid=<?php echo $row['cid']; ?>'" /></li>
 <?php endforeach; ?>
+</li>
