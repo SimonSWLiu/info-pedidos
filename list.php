@@ -11,8 +11,10 @@ if ($list) {
 		$sql = "SELECT * FROM menu WHERE menu_id='{$row->menu}'";
 		$result = $db->query($sql);
 		$menu = $result->fetch_assoc();
-		$pedidos[] = $menu;
-		$count[$row->menu] = $row->count;
+		$pedidos[]['name'] = $menu['m_name'];
+		$pedidos[]['price'] = $menu['m_price'];
+		$pedidos[]['count'] = $row->count;
+//		$count[$row->menu] = $row->count;
 		$price += $row->count * $menu['m_price'];
 	}
 }
@@ -31,14 +33,14 @@ if ($list) {
 			foreach ($pedidos as $row): ?>
 			<input type="hidden" name="menu" value="<?php echo $row['menu_id'] . ':' . $count[$row['menu_id']]; ?>" />
 			<tr>
-				<td><?php echo $row['m_name']; ?></td>
-				<td><?php echo $count[$row['menu_id']]; ?></td>
-				<td><?php echo $row['m_price']; ?></td>
+				<td><?php echo $row['name']; ?></td>
+				<td><?php echo $row['count']; ?></td>
+				<td><?php echo $row['price']; ?></td>
 			</tr>
 		<?php endforeach;
 		endif; ?>
 		</table>
 		<div>总价: <span><?php echo $price; ?></span></div>
-		<input type="submit" value="提交" />
+		<input type="submit" value="提交" /><input type="button" value="清空" onclick="document.cookie = 'pedidos=\'\';expires=0'; parent.history.go(0);" />
 	</form>
 </div>
