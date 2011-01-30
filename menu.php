@@ -5,7 +5,11 @@ include 'db.php';
 if ($_POST) {
 	if ($_POST['step'] == 4) {
 		$menuArr = (array)$_POST['selectMenu'];
-		$value = isset($_COOKIE['pedidos'])? json_decode($_COOKIE['pedidos']) : array();
+		$value = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : '';
+		$valArr = array();
+		$valArr = explode(';', $value);
+		array_pop($valArr);
+		
 		foreach ($menuArr as $row) {
 			$sql = "SELECT menu.*,category.c_name,restaurant.r_name FROM menu,category,restaurant WHERE menu_id='$row' AND menu.cat_id=category.cid AND menu.restaurant_id=restaurant.rid";
 			$result = $db->query($sql);
@@ -25,6 +29,7 @@ if ($_POST) {
 				if (isset($row2->menu) && ($row2->menu == $row)) {
 					$row2->count += 1;
 				} else {
+					$value .= "$row:$count;";
 					$value[] = array('menu'=>$row, 'count'=>1);
 				}
 			}

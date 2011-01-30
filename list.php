@@ -19,7 +19,7 @@ if ($list) {
 	}
 }
 ?>
-<div style="float: right;">
+<div style="float: left; margin-top: 10px; color: #FFF;">
 	<div>我的餐单</div>
 	<form method="post" action="">
 		<table>
