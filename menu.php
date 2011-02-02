@@ -4,40 +4,43 @@ include 'db.php';
 
 if ($_POST) {
 	if ($_POST['step'] == 4) {
-		$menuArr = (array)$_POST['selectMenu'];
-		$value = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : '';
-		$valArr = array();
-		$valArr = explode(';', $value);
-		array_pop($valArr);
+		$menuArr = (array)$_POST['selectMenu']; // 获取提交的菜式
 		
+		$listStr = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : ''; // cookie中已点菜单
+		
+		$listArr = array();
+		$munus = array();
+		$listArr = explode(';', $listStr);
+		array_pop($listArr);
+		
+		foreach ($listArr as $row) { // 将已点菜单字符串分解成数组
+			$rows = explode(':', $row);
+			$menus[]['menu_id'] = $rows[0];
+			$menus[]['menu_count'] = $rows[1];
+		}
+		
+		
+		$arrCount = $count = count($menus);
 		foreach ($menuArr as $row) {
-			$sql = "SELECT menu.*,category.c_name,restaurant.r_name FROM menu,category,restaurant WHERE menu_id='$row' AND menu.cat_id=category.cid AND menu.restaurant_id=restaurant.rid";
-			$result = $db->query($sql);
-			$menu = $result->fetch_assoc();
-			$mid = $_SESSION['login']['mid'];
-			$rid = $menu['restaurant_id'];
-			$rName = $menu['r_name'];
-			$cid = $menu['cat_id'];
-			$cName = $menu['c_name'];
-			$mName = $menu['m_name'];
-			$mPrice = $menu['m_price'];
-//			print_r($value);
-//			exit;
-//			$value[] = array('menu'=>$row, 'count'=>1);
-			
-			foreach ($value as $row2) {
-				if (isset($row2->menu) && ($row2->menu == $row)) {
-					$row2->count += 1;
-				} else {
-					$value .= "$row:$count;";
-					$value[] = array('menu'=>$row, 'count'=>1);
+			$tag = 0;
+			for ($i = 0; $i < $arrCount; $i++) {
+				if ($row == $menus[$i]['menu_id']) {
+					$menus[$i]['menu_count'] += 1;
+					$i = $arrCount;
+					$tag = 1;
 				}
 			}
-			
-//			$sql = "INSERT INTO pedidos_log(`mid`,`edit_time`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`)
-//							VALUES('$mid','{time()}','$rid','$rName','$cid','$cName','$row','$mName','$mPrice','1','$mPrice','')";
+			if ($tag == 0) {
+				$menus[]['menu_id'] = $row;
+				$menus[]['menu_count'] = 1;
+			}
 		}
-		$pedidos = json_encode($value);
+		
+		$pedios = '';
+		foreach ($menus as $row) {
+			$pedidos .= $row['menu_id'] . ':' . $row['menu_count'] . ';';
+		}
+		
 		setcookie('pedidos', $pedidos, time() + 41400, '/');
 		exit('<script>parent.location.href="/pedidos.php"</script>');
 	}
