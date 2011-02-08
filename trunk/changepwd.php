@@ -9,7 +9,7 @@ if ($_POST) {
 		$sql = "SELECT pwd FROM members WHERE mid='{$_SESSION['login']['mid']}'";
 		$result = $db->query($sql);
 		$row = $result->fetch_assoc();
-		if ($row['pwd'] != $oldPwd) exit('原密码不同');
+		if ($row['pwd'] != md5($oldPwd)) exit('原密码不同');
 		$pwd = md5($newPwd);
 		$sql = "UPDATE members SET pwd='$pwd' WHERE mid='{$_SESSION['login']['mid']}'";
 		$rowAffected = $db->query($sql);
