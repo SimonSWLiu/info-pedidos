@@ -32,7 +32,7 @@ while ($row = $result->fetch_assoc()) {
 			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['status']; ?></a></td>
 			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['level']; ?></a></td>
 			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['balance']; ?></a></td>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>">充值</a> <a href=".php?mid=<?php echo $row['mid']; ?>">冻结</a></td>
+			<td><a href="recharge.php?mid=<?php echo $row['mid']; ?>">充值</a> <a href="resetpwd.php?mid=<?php echo $row['mid']; ?>" onClick="if (!confirm('确定要重置密码?')) return false;">重置密码</a> <a href=".php?mid=<?php echo $row['mid']; ?>">冻结</a></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>

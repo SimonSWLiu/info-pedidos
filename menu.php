@@ -9,16 +9,16 @@ if ($_POST) {
 		$listStr = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : ''; // cookie中已点菜单
 		
 		$listArr = array();
-		$munus = array();
+		$menus = array();
 		$listArr = explode(';', $listStr);
 		array_pop($listArr);
 		
 		foreach ($listArr as $row) { // 将已点菜单字符串分解成数组
 			$rows = explode(':', $row);
-			$menus[]['menu_id'] = $rows[0];
-			$menus[]['menu_count'] = $rows[1];
+			$menu['menu_id'] = $rows[0];
+			$menu['menu_count'] = $rows[1];
+			$menus[] = $menu;
 		}
-		
 		
 		$arrCount = $count = count($menus);
 		foreach ($menuArr as $row) {
@@ -31,12 +31,13 @@ if ($_POST) {
 				}
 			}
 			if ($tag == 0) {
-				$menus[]['menu_id'] = $row;
-				$menus[]['menu_count'] = 1;
+				$menu['menu_id'] = $row;
+				$menu['menu_count'] = 1;
+				$menus[] = $menu;
 			}
 		}
 		
-		$pedios = '';
+		$pedidos = '';
 		foreach ($menus as $row) {
 			$pedidos .= $row['menu_id'] . ':' . $row['menu_count'] . ';';
 		}

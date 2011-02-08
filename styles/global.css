@@ -9,6 +9,7 @@ a:hover { text-decoration: underline; }
 .leftbar a { color: #FFF; font-size: 14px; text-decoration: none; display: block; }
 .leftbar a:hover { background-color: #F00; }
 
+/*table { border-collapse: collapse; }*/
 
 .header { position: absolute; top: 0; height: 30px; width: 100%; background-color: #CCC; }
 ul { margin: 0; padding: 0; }
