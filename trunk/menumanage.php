@@ -3,7 +3,14 @@
 include 'config.php';
 include 'db.php';
 if ($_GET) {
-	$name = $_GET['restaurant_name'];
+	$name = trim($_GET['restaurant_name']);
+	if (!$name) {
+		echo "You have not entered all the required details.<br />Please go back and try again.";
+		exit;
+	}
+	if (!get_magic_quotes_gpc()) {
+		$name = addslashes($name);
+	}
 	$sql = "SELECT COUNT(*) FROM restaurant WHERE `r_name`='$name'";
 	$result = $db->query($sql);
 	$row = $result->fetch_assoc();
