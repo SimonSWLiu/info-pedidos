@@ -7,9 +7,13 @@ $halfEleven = $today + 41400;
 $sql = "SELECT * FROM pedidos_log WHERE edit_time>$today";
 $result = $db->query($sql);
 $logArr = array();
+$totalCount = 0;
+$totalPrice = 0;
 while($row = $result->fetch_assoc()) {
 	// 逐行数据处理
 	$logArr[] = $row;
+	$totalCount += $row['dish_count'];
+	$totalPrice += $row['total_price'];
 }
 ?>
 <!DOCTYPE html>
@@ -42,6 +46,12 @@ while($row = $result->fetch_assoc()) {
 			<td><?php echo $row['status']; ?></td>
 		</tr>
 		<?php endforeach; ?>
+		<tr>
+			<td>总数量：</td>
+			<td colspan="3"><?php echo $totalCount; ?></td>
+			<td>总价：</td>
+			<td colspan="3">￥<?php echo number_format($totalPrice, 2, '.', ','); ?></td>
+		</tr>
 	</table>
 	<input type="button" value="全部通过" onClick="selectLogs();" />
 <script type="text/javascript" src="scripts/jquery.js"></script>
