@@ -23,6 +23,10 @@ if ($_POST) {
 			$sql = "INSERT INTO pedidos_log(mid,edit_time,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
 							VALUES('$mid','$editTime','{$menuRow['rid']}','{$menuRow['r_name']}','{$menuRow['cid']}','{$menuRow['c_name']}','{$menuRow['menu_id']}','{$menuRow['m_name']}','{$menuRow['m_price']}','$menuCount','$total','',0)";
 			$insertResult = $db->query($sql);
+			$totalPrice = $menuCount * $menuRow['m_price'];
+			$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
+			mysqli_query($db, $sql);
+			$affected_num = mysqli_affected_rows($db);
 		}
 	}
 	setcookie('pedidos','',0,'/'); // 清空cookie
