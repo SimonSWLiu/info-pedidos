@@ -17,16 +17,25 @@ if ($_POST) {
 		$sql = "SELECT * FROM menu,restaurant,category WHERE menu_id='$menuId' AND cat_id=cid AND restaurant_id=restaurant.rid";
 		$result = $db->query($sql);
 		
+		$dateArr = getdate();
+		$year = $dateArr['year'];
+		$month = $dateArr['mon'];
+		$day = $dateArr['mday'];
+		$hour = $dateArr['hours'];
+		$minute = $dateArr['minutes'];
 		while($menuRow = $result->fetch_assoc()) {
 			$editTime = time();
 			$total = $menuCount * $menuRow['m_price'];
-			$sql = "INSERT INTO pedidos_log(mid,edit_time,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
-							VALUES('$mid','$editTime','{$menuRow['rid']}','{$menuRow['r_name']}','{$menuRow['cid']}','{$menuRow['c_name']}','{$menuRow['menu_id']}','{$menuRow['m_name']}','{$menuRow['m_price']}','$menuCount','$total','',0)";
+			$sql = "INSERT INTO pedidos_log(mid,edit_time,year,month,day,hour,minute,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
+							VALUES('$mid','$editTime','$year','$month','$day','$hour','$minute','{$menuRow['rid']}','{$menuRow['r_name']}','{$menuRow['cid']}','{$menuRow['c_name']}','{$menuRow['menu_id']}','{$menuRow['m_name']}','{$menuRow['m_price']}','$menuCount','$total','',0)";
 			$insertResult = $db->query($sql);
-			$totalPrice = $menuCount * $menuRow['m_price'];
-			$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
-			mysqli_query($db, $sql);
-			$affected_num = mysqli_affected_rows($db);
+			$affected_row = mysqli_affected_rows($db);
+			if ($affected_row == 1) {
+				$totalPrice = $menuCount * $menuRow['m_price'];
+				$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
+				mysqli_query($db, $sql);
+				$affected_num = mysqli_affected_rows($db);
+			}
 		}
 	}
 	setcookie('pedidos','',0,'/'); // 清空cookie

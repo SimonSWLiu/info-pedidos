@@ -31,9 +31,9 @@ if ($_POST) {
 <body>
 <div>
 	<form action="" method="post">
-		<label>原密码：<input type="text" name="oldpwd" /></label><br />
-		<label>新密码：<input type="text" name="newpwd" /></label><br />
-		<label>确认新密码：<input type="text" name="retypepwd" /></label><br />
+		<label>原密码：<input type="password" name="oldpwd" /></label><br />
+		<label>新密码：<input type="password" name="newpwd" /></label><br />
+		<label>确认新密码：<input type="password" name="retypepwd" /></label><br />
 		<input type="submit" value="保存" />
 	</form>
 </div>

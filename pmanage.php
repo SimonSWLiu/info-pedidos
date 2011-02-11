@@ -1,10 +1,28 @@
 <?php
 include 'config.php';
 include 'db.php';
-$today = time() % 86400;
-$halfEleven = $today + 41400;
+
+$sql = "SELECT * FROM restaurant";
+$result = mysqli_query($db, $sql);
+$restaurant = array();
+while($row = mysqli_fetch_assoc($result)) {
+	$restaurant[] = $row;
+}
+
+//$today = time() % 86400;
+//$halfEleven = $today + 41400;
 //$sql = "SELECT * FROM pedidos_log WHERE edit_time>$today AND edit_time<$halfEleven";
-$sql = "SELECT * FROM pedidos_log WHERE edit_time>$today";
+$dateArr = getdate();
+$todayYear = $dateArr['year'];
+$todayMonth = $dateArr['mon'];
+$todayDay = $dateArr['mday'];
+$sql = "SELECT * FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+$sql2 = "SELECT DISTINCT rid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+if ($_GET) {
+	$rid = addslashes($_GET['rid']);
+	$sql .= " AND rid='$rid'";
+	$sql2 .= " AND rid='$rid'";
+}
 $result = $db->query($sql);
 $logArr = array();
 $totalCount = 0;
@@ -15,15 +33,35 @@ while($row = $result->fetch_assoc()) {
 	$totalCount += $row['dish_count'];
 	$totalPrice += $row['total_price'];
 }
+
+mysqli_free_result($result);
+$result = mysqli_query($db, $sql2);
+$deliveryCharges = 0;
+while($row = mysqli_fetch_assoc($result)) {
+	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='{$row['rid']}'";
+	$result2 = mysqli_query($db, $sql);
+	$row2 = mysqli_fetch_assoc($result2);
+	$deliveryCharges += $row2['delivery_charges'];
+}
+$totalPrice += $deliveryCharges;
 ?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>会员管理</title>
 <link type="text/css" rel="stylesheet" href="styles/global.css" />
+<style type="text/css">
+.r_filter li { float: left; }
+</style>
 </head>
 <body>
-	<table style="text-align: left;" border="1">
+	<ul class="r_filter">
+		<li><a href="pmanage.php">全部</a></li>
+		<?php foreach ($restaurant as $row): ?>
+		<li><a href="?rid=<?php echo $row['rid']; ?>"><?php echo $row['r_name']; ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+	<table style="text-align: left; clear: both;" border="1">
 		<tr>
 			<th><label><input type="checkbox" name="allLogs" />全选</label></th>
 			<th>餐厅</th>
@@ -48,7 +86,9 @@ while($row = $result->fetch_assoc()) {
 		<?php endforeach; ?>
 		<tr>
 			<td>总数量：</td>
-			<td colspan="3"><?php echo $totalCount; ?></td>
+			<td><?php echo $totalCount; ?></td>
+			<td>外卖费：</td>
+			<td><?php echo $deliveryCharges; ?></td>
 			<td>总价：</td>
 			<td colspan="3">￥<?php echo number_format($totalPrice, 2, '.', ','); ?></td>
 		</tr>
@@ -63,7 +103,6 @@ function selectLogs() {
 	for (var i = 0; i < logs.length; i++) {
 		logsStr += logs[i].value + ';';
 	}
-//	alert(logsStr);
 	$.get('/allmenuspass.php', {
 		logs: logsStr
 	}, function(data) {

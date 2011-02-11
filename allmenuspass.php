@@ -14,14 +14,20 @@ if ($_GET) {
 		$totalPrice = $log['total_price'];
 		$status = $log['status'];
 		if ($status != 1) {
-			$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
-			$result = $db->query($sql);
-			unset($result);
+//			$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
+//			$result = $db->query($sql);
+//			unset($result);
 			$sql = "UPDATE pedidos_log SET status='1' WHERE log_id='$row'";
 			$result = $db->query($sql);
 			unset($result);
 		}
 	}
+	$dateArr = getdate();
+	$todayYear = $dateArr['year'];
+	$todayMonth = $dateArr['mon'];
+	$todayDay = $dateArr['mday'];
+	$sql = "SELECT DISTINCT mid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+	$result = mysqli_query($db, $sql);
 	echo '1';
 	exit;
 }
