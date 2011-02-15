@@ -87,7 +87,18 @@ for($i = 0; $i < count($restaurant_count); $i++) {
 	$charge = $charge_row['delivery_charges'];
 	$averageCharge = (float)$charge / $restaurant_count[$i]['count'];
 	$averageCharge = ceil($averageCharge * 100) / 100;
-	$restaurant_count[$i]['averageCharge'] = $averageCharge;
+	$restaurant_count[$i]['averageCharge'] = $averageCharge; // 平均每人的外卖费
+}
+foreach($restaurant_count as $row) {
+	foreach($rid as $row2) {
+		if($row['rid'] == $row2['rid']) {
+			$averageCharge = $row['averageCharge'];
+			$mid = $row['mid'];
+			$sql = "UPDATE members SET balance=balance-'$averageCharge' WHERE mid='$mid'";
+			$result = mysqli_query($db, $sql);
+//			$affectedRow = mysqli_affected_rows($result);
+		}
+	}
 }
 
 $result = mysqli_query($db, $sql2);
