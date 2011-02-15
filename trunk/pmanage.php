@@ -9,14 +9,11 @@ while($row = mysqli_fetch_assoc($result)) {
 	$restaurant[] = $row;
 }
 
-//$today = time() % 86400;
-//$halfEleven = $today + 41400;
-//$sql = "SELECT * FROM pedidos_log WHERE edit_time>$today AND edit_time<$halfEleven";
 $dateArr = getdate();
 $todayYear = $dateArr['year'];
 $todayMonth = $dateArr['mon'];
 $todayDay = $dateArr['mday'];
-$sql = "SELECT * FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+$sql = "SELECT *,members.name FROM pedidos_log,members WHERE pedidos_log.mid=members.mid AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
 $sql2 = "SELECT DISTINCT rid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
 if ($_GET) {
 	$rid = addslashes($_GET['rid']);
@@ -33,8 +30,66 @@ while($row = $result->fetch_assoc()) {
 	$totalCount += $row['dish_count'];
 	$totalPrice += $row['total_price'];
 }
-
 mysqli_free_result($result);
+
+// 计算每人的外卖费
+$rid = array();
+foreach($logArr as $row) { // 遍历今日的点餐日志
+	if($rid) {
+		for($i = 0; $i < count($rid); $i++) {
+			if($rid[$i]['rid'] == $row['rid'] && $rid[$i]['mid'] == $row['mid']) {
+				$rid[$i]['count']++;
+				break;
+			} else {
+				$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
+				break;
+			}
+		}
+	} else {
+		$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
+	}
+}
+print_r($rid);
+
+//$restaurant_log = array();
+//for($i = 0; $i < count($rid); $i++) {
+//	$rid = $rid[$i]['rid'];
+//	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='$rid'";
+//	$result = mysqli_query($db, $sql);
+//	$charge_row = mysqli_fetch_assoc($result);
+//	$rid[$i]['charge'] = $charge_row['delivery_charges']; // 该餐厅的外卖费
+//}
+
+$restaurant_count = array(); // 点了指定餐厅的人数
+foreach($rid as $row) {
+	if($restaurant_count) {
+		for($i = 0; $i < count($restaurant_count); $i++) {
+			if($row['rid'] == $restaurant_count[$i]['rid']) {
+				$restaurant_count[$i]['count']++;
+				break;
+			} else {
+				$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
+				break;
+			}
+		}
+	} else {
+		$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
+	}
+}
+echo '<br />';
+print_r($restaurant_count);
+
+for($i = 0; $i < count($restaurant_count); $i++) {
+	$rid = $row['rid'];
+	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='$rid'";
+	$result = mysqli_query($db, $sql);
+	$charge_row = mysqli_fetch_assoc($result);
+	$charge = $charge_row['delivery_charges'];
+	$averageCharge = (float)$charge / $restaurant_count[$i]['count'];
+	$averageCharge = ceil($averageCharge * 100) / 100;
+	$restaurant_count[$i]['averageCharge'] = $averageCharge;
+}
+
 $result = mysqli_query($db, $sql2);
 $deliveryCharges = 0;
 while($row = mysqli_fetch_assoc($result)) {
@@ -64,6 +119,7 @@ $totalPrice += $deliveryCharges;
 	<table style="text-align: left; clear: both;" border="1">
 		<tr>
 			<th><label><input type="checkbox" name="allLogs" />全选</label></th>
+			<th>点餐人</th>
 			<th>餐厅</th>
 			<th>类别</th>
 			<th>菜名</th>
@@ -75,6 +131,7 @@ $totalPrice += $deliveryCharges;
 		<?php foreach ($logArr as $row): ?>
 		<tr>
 			<td><input type="checkbox" name="selectLog" value="<?php echo $row['log_id']; ?>" /></td>
+			<td><?php echo $row['name']; ?></td>
 			<td><?php echo $row['r_name']; ?></td>
 			<td><?php echo $row['c_name']; ?></td>
 			<td><?php echo $row['dish_name']; ?></td>
