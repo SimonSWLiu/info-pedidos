@@ -35,7 +35,7 @@ if ($list) {
 ?>
 <div style="color: #FFFFFF; float: left; margin: 30px 0; width: 100%;">
 	<div>我的餐单</div>
-	<form method="post" action="submitmenu.php" onsubmit="return menuValidate()">
+	<form method="post" action="submitmenu.php" onsubmit="return menuValidate()" style="background-color: #F00;">
 		<table>
 			<tr>
 				<td>菜名</td>
