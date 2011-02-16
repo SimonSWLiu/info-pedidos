@@ -32,75 +32,6 @@ while($row = $result->fetch_assoc()) {
 }
 mysqli_free_result($result);
 
-// 计算每人的外卖费
-$rid = array();
-foreach($logArr as $row) { // 遍历今日的点餐日志
-	if($rid) {
-		for($i = 0; $i < count($rid); $i++) {
-			if($rid[$i]['rid'] == $row['rid'] && $rid[$i]['mid'] == $row['mid']) {
-				$rid[$i]['count']++;
-				break;
-			} else {
-				$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
-				break;
-			}
-		}
-	} else {
-		$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
-	}
-}
-print_r($rid);
-
-//$restaurant_log = array();
-//for($i = 0; $i < count($rid); $i++) {
-//	$rid = $rid[$i]['rid'];
-//	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='$rid'";
-//	$result = mysqli_query($db, $sql);
-//	$charge_row = mysqli_fetch_assoc($result);
-//	$rid[$i]['charge'] = $charge_row['delivery_charges']; // 该餐厅的外卖费
-//}
-
-$restaurant_count = array(); // 点了指定餐厅的人数
-foreach($rid as $row) {
-	if($restaurant_count) {
-		for($i = 0; $i < count($restaurant_count); $i++) {
-			if($row['rid'] == $restaurant_count[$i]['rid']) {
-				$restaurant_count[$i]['count']++;
-				break;
-			} else {
-				$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
-				break;
-			}
-		}
-	} else {
-		$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
-	}
-}
-echo '<br />';
-print_r($restaurant_count);
-
-for($i = 0; $i < count($restaurant_count); $i++) {
-	$rid = $row['rid'];
-	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='$rid'";
-	$result = mysqli_query($db, $sql);
-	$charge_row = mysqli_fetch_assoc($result);
-	$charge = $charge_row['delivery_charges'];
-	$averageCharge = (float)$charge / $restaurant_count[$i]['count'];
-	$averageCharge = ceil($averageCharge * 100) / 100;
-	$restaurant_count[$i]['averageCharge'] = $averageCharge; // 平均每人的外卖费
-}
-foreach($restaurant_count as $row) {
-	foreach($rid as $row2) {
-		if($row['rid'] == $row2['rid']) {
-			$averageCharge = $row['averageCharge'];
-			$mid = $row['mid'];
-			$sql = "UPDATE members SET balance=balance-'$averageCharge' WHERE mid='$mid'";
-			$result = mysqli_query($db, $sql);
-//			$affectedRow = mysqli_affected_rows($result);
-		}
-	}
-}
-
 $result = mysqli_query($db, $sql2);
 $deliveryCharges = 0;
 while($row = mysqli_fetch_assoc($result)) {
@@ -110,6 +41,9 @@ while($row = mysqli_fetch_assoc($result)) {
 	$deliveryCharges += $row2['delivery_charges'];
 }
 $totalPrice += $deliveryCharges;
+
+print_r($logArr);
+exit;
 ?>
 <!DOCTYPE html>
 <head>
