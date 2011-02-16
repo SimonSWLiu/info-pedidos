@@ -13,8 +13,12 @@ $dateArr = getdate();
 $todayYear = $dateArr['year'];
 $todayMonth = $dateArr['mon'];
 $todayDay = $dateArr['mday'];
-$sql = "SELECT *,members.name FROM pedidos_log,members WHERE pedidos_log.mid=members.mid AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
-$sql2 = "SELECT DISTINCT rid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+$sql = "SELECT pedidos_log.*,members.name
+				FROM pedidos_log,members
+				WHERE pedidos_log.mid=members.mid AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+$sql2 = "SELECT DISTINCT rid
+				 FROM pedidos_log
+				 WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
 if ($_GET) {
 	$rid = addslashes($_GET['rid']);
 	$sql .= " AND rid='$rid'";
@@ -41,9 +45,6 @@ while($row = mysqli_fetch_assoc($result)) {
 	$deliveryCharges += $row2['delivery_charges'];
 }
 $totalPrice += $deliveryCharges;
-
-print_r($logArr);
-exit;
 ?>
 <!DOCTYPE html>
 <head>
@@ -72,6 +73,7 @@ exit;
 			<th>数量</th>
 			<th>总价</th>
 			<th>状态</th>
+			<th>操作</th>
 		</tr>
 		<?php foreach ($logArr as $row): ?>
 		<tr>
@@ -84,6 +86,7 @@ exit;
 			<td><?php echo $row['dish_count']; ?></td>
 			<td><?php echo $row['total_price']; ?></td>
 			<td><?php echo $row['status']; ?></td>
+			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 		<tr>
