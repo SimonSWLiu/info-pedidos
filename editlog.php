@@ -6,6 +6,23 @@ if ($_GET) {
 	$lid = intval($lid);
 	$result = mysqli_query($db, "SELECT * FROM pedidos_log WHERE log_id='$lid'");
 	$logRow = mysqli_fetch_assoc($result);
+} elseif ($_POST) {
+	$unitPrice = floatval($_POST['unit_price']);
+	$dishCount = intval($_POST['dish_count']);
+	$totalPrice = floatval($_POST['total_price']);
+	$note = strip_tags(trim($_POST['note']));
+	$lid = intval(trim($_POST['lid']));
+	$sql = "UPDATE pedidos_log
+					SET `unit_price`='$unitPrice',`dish_count`='$dishCount',`total_price`='$totalPrice',`note`='$note'
+					WHERE log_id='$lid'";
+	mysqli_query($db, $sql);
+	$affectedRow = mysqli_affected_rows($db);
+	if ($affectedRow == 1) {
+		header('location: /pmanage.php');
+		exit; 
+	} else {
+		exit('操作失败');
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +32,7 @@ if ($_GET) {
 <link type="text/css" rel="stylesheet" href="styles/global.css" />
 </head>
 <body>
-	<form action="" method="post">
+	<form action="editlog.php" method="post">
 		<table>
 			<tr>
 				<th>订餐人</th>
@@ -27,19 +44,19 @@ if ($_GET) {
 				<th>总价</th>
 				<th>备注</th>
 			</tr>
-			<?php foreach($logRow as $row): ?>
 			<tr>
-				<td><?php echo $row['mid']; ?></td>
-				<td><?php echo $row['r_name']?></td>
-				<td><?php echo $row['c_name']?></td>
-				<td><?php echo $row['dish_name']?></td>
-				<td><?php echo $row['unit_price']?></td>
-				<td><?php echo $row['dish_count']?></td>
-				<td><?php echo $row['total_price']?></td>
-				<td><?php echo $row['note']; ?></td>
+				<td><?php echo $logRow['mid']; ?></td>
+				<td><?php echo $logRow['r_name']?></td>
+				<td><?php echo $logRow['c_name']?></td>
+				<td><?php echo $logRow['dish_name']?></td>
+				<td><input type="text" name="unit_price" value="<?php echo $logRow['unit_price']?>" /></td>
+				<td><input type="text" name="dish_count" value="<?php echo $logRow['dish_count']?>" /></td>
+				<td><input type="text" name="total_price" value="<?php echo $logRow['total_price']?>" /></td>
+				<td><input type="text" name="note" value="<?php echo $logRow['note']; ?>" /></td>
 			</tr>
-			<?php endforeach; ?>
 		</table>
+		<input type="hidden" name="lid" value="<?php echo $logRow['log_id']; ?>" />
+		<input type="submit" value="Save" />
 	</form>
 	<script type="text/javascript" src="/scripts/jquery.js"></script>
 </body>

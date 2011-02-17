@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+include 'db.php';
 if ($_POST) {
 	$email = isset($_POST['email'])? $_POST['email']:'';
 	$name = isset($_POST['name'])? $_POST['name']:'';
@@ -12,8 +13,8 @@ if ($_POST) {
 	$name_len = strlen($name);
 	$pattern = '/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/'; // 电子邮箱的正则匹配
 	preg_match($pattern, $email);
-	if ($name_len < 6 || $name_len > 16) {
-		header('Location: /reg.php?msg=姓名不能少于6个字符或超过16个字符');
+	if ($name_len < 3 || $name_len > 16) {
+		header('Location: /reg.php?msg=姓名不能少于3个字符或超过16个字符');
 		exit;
 	} elseif ($pwd != $repwd) {
 		header('location: /reg.php?msg=两次密码输入不相同');
@@ -40,7 +41,7 @@ if ($_POST) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>注册</title>
 <link href="/styles/global.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/scripts/jquery-1.4.3.js"></script>
+<script type="text/javascript" src="/scripts/jquery.js"></script>
 <script type="text/javascript" src="/scripts/global.js"></script>
 </head>
 <body>
