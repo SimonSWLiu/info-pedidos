@@ -85,7 +85,22 @@ $totalPrice += $deliveryCharges;
 			<td><?php echo $row['unit_price']; ?></td>
 			<td><?php echo $row['dish_count']; ?></td>
 			<td><?php echo $row['total_price']; ?></td>
-			<td><?php echo $row['status']; ?></td>
+			<td>
+			<?php
+				switch ($row['status']) {
+					case '0':
+						echo '未审核';
+						break;
+					case '1':
+						echo '通过';
+						break;
+					case '2':
+						echo '不通过';
+						break;
+				} 
+			?>
+			</td>
+			
 			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
@@ -98,7 +113,7 @@ $totalPrice += $deliveryCharges;
 			<td colspan="3">￥<?php echo number_format($totalPrice, 2, '.', ','); ?></td>
 		</tr>
 	</table>
-	<input type="button" value="全部通过" onClick="selectLogs();" />
+	<input type="button" value="通过" onClick="selectLogs();" />
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 <script type="text/javascript">
@@ -106,7 +121,9 @@ function selectLogs() {
 	var logs = document.getElementsByName('selectLog');
 	var logsStr = '';
 	for (var i = 0; i < logs.length; i++) {
-		logsStr += logs[i].value + ';';
+		if (logs[i].checked == true) {
+			logsStr += logs[i].value + ';';
+		}
 	}
 	$.get('/allmenuspass.php', {
 		logs: logsStr
