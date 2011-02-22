@@ -41,6 +41,7 @@ if ($_POST) {
 		<label for="user">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
 <!--		<input type="checkbox" id="remember" /><label for="remember">下次记住我</label><br />-->
 		<input type="submit" value="登 录" />
+		<a href="reg.php">注册</a>
 	</form>
 </div>
 </body>
