@@ -60,8 +60,8 @@ if ($_POST) {
 	<label for="email">电子邮箱: </label><input type="text" name="email" id="email" />
     <div><label for="name">用户姓名: </label><input type="text" name="name" id="name" /></div>
     <div><label for="pwd">登录密码: </label><input type="password" name="pwd" id="pwd" /></div>
-    <div><label for="repwd">再次输入密码: </label><input type="password" name="repwd" id="repwd" /></div>
-	<div><label for="captcha">验证码: </label><input type="text" name="captcha" id="captcha" /><img src="/captcha.php" alt="验证码" /></div>
+		<div><label for="repwd">再次输入密码: </label><input type="password" name="repwd" id="repwd" /></div>
+		<!--<div><label for="captcha">验证码: </label><input type="text" name="captcha" id="captcha" /><img src="/captcha.php" alt="验证码" /></div>-->
     <div><input type="submit" value="注 册" /></div>
 </form>
 </div>
