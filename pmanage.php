@@ -101,7 +101,7 @@ $totalPrice += $deliveryCharges;
 			?>
 			</td>
 			
-			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="">删除</a></td>
+			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="delorder.php?lid=<?php echo $row['log_id']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
 		<tr>
