@@ -49,11 +49,30 @@ $totalPrice += $deliveryCharges;
 // 生成以菜名归类的表格
 $menuList = array();
 $count = array();
-foreach ($logArr as $row) {
+$menuList[0]['r_name'] = $logArr[0]['r_name'];
+$menuList[0]['c_name'] = $logArr[0]['c_name'];
+$menuList[0]['dish_name'] = $logArr[0]['dish_name'];
+$menuList[0]['unit_price'] = $logArr[0]['unit_price'];
+$menuList[0]['dish_count'] = $logArr[0]['dish_count'];
+$menuList[0]['total_price'] = $logArr[0]['total_price'];
+$menuList[0]['menu_id'] = $logArr[0]['menu_id'];
+//foreach ($logArr as $row) {
+for ($j = 1; $j < count($logArr); $j++) {
+	$row = $logArr[$j];
 	$menuId = $row['menu_id'];
-	$count[$menuId]++;
+	$tag = 0;
+	for ($i = 0; $i < count($menuList); $i++) {
+		if ($menuList[$i]['menu_id'] == $menuId) { // 相同的菜式，数量加一
+			$menuList[$i]['dish_count'] += $row['dish_count'];
+			$menuList[$i]['total_price'] += $row['total_price'];
+			$tag = 1;
+			break;
+		}
+	}
+	if ($tag == 0)
+	$menuList[] = array('r_name'=>$row['r_name'], 'c_name'=>$row['c_name'], 'dish_name'=>$row['dish_name'],
+											'unit_price'=>$row['unit_price'], 'dish_count'=>$row['dish_count'], 'total_price'=>$row['total_price'], 'menu_id'=>$menuId);
 }
-// 未完成
 
 mysqli_close($db);
 ?>
@@ -128,7 +147,6 @@ mysqli_close($db);
 	<div>
 		<table style="text-align: left; clear: both;" border="1">
 			<tr>
-				<th>点餐人</th>
 				<th>餐厅</th>
 				<th>类别</th>
 				<th>菜名</th>
@@ -136,9 +154,16 @@ mysqli_close($db);
 				<th>数量</th>
 				<th>总价</th>
 			</tr>
+			<?php foreach($menuList as $row): ?>
 			<tr>
-			
+				<td><?php echo $row['r_name']; ?></td>
+				<td><?php echo $row['c_name']; ?></td>
+				<td><?php echo $row['dish_name']; ?></td>
+				<td><?php echo $row['unit_price']; ?></td>
+				<td><?php echo $row['dish_count']; ?></td>
+				<td><?php echo $row['total_price']; ?></td>
 			</tr>
+			<?php endforeach; ?>
 		</table>
 	</div>
 <script type="text/javascript" src="scripts/jquery.js"></script>
