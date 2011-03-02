@@ -45,6 +45,17 @@ while($row = mysqli_fetch_assoc($result)) {
 	$deliveryCharges += $row2['delivery_charges'];
 }
 $totalPrice += $deliveryCharges;
+
+// 生成以菜名归类的表格
+$menuList = array();
+$count = array();
+foreach ($logArr as $row) {
+	$menuId = $row['menu_id'];
+	$count[$menuId]++;
+}
+// 未完成
+
+mysqli_close($db);
 ?>
 <!DOCTYPE html>
 <head>
@@ -114,6 +125,22 @@ $totalPrice += $deliveryCharges;
 		</tr>
 	</table>
 	<input type="button" value="通过" onClick="selectLogs();" />
+	<div>
+		<table style="text-align: left; clear: both;" border="1">
+			<tr>
+				<th>点餐人</th>
+				<th>餐厅</th>
+				<th>类别</th>
+				<th>菜名</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>总价</th>
+			</tr>
+			<tr>
+			
+			</tr>
+		</table>
+	</div>
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 <script type="text/javascript">
