@@ -73,6 +73,20 @@ for ($j = 1; $j < count($logArr); $j++) {
 	$menuList[] = array('r_name'=>$row['r_name'], 'c_name'=>$row['c_name'], 'dish_name'=>$row['dish_name'],
 											'unit_price'=>$row['unit_price'], 'dish_count'=>$row['dish_count'], 'total_price'=>$row['total_price'], 'menu_id'=>$menuId);
 }
+asort($menuList);
+
+// 找出不重复的今天下订单的会员id
+$sql = "SELECT DISTINCT mid FROM pedidos_log
+				WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+$result = mysqli_query($db, $sql);
+$ratio_arr = array();
+while ($row = mysqli_fetch_assoc($result)) {
+	$sql1 = "SELECT delivery_ratio FROM members WHERE mid='{$row['mid']}'";
+	$result1 = mysqli_query($db, $sql1);
+	$ratio = mysqli_fetch_assoc($result1);
+	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
+}
+$max = max($ratio_arr);
 
 mysqli_close($db);
 ?>
