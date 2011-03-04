@@ -84,9 +84,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$sql1 = "SELECT delivery_ratio FROM members WHERE mid='{$row['mid']}'";
 	$result1 = mysqli_query($db, $sql1);
 	$ratio = mysqli_fetch_assoc($result1);
-	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
+//	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
+	$ratio_arr[] = array('mid'=>$row['mid'], 'ratio'=>$ratio['delivery_ratio']);
 }
-$max = max($ratio_arr);
+// 找出ratio最少的家伙，他负责付这次的外卖费
+print_r($ratio_arr);
+exit;
 
 mysqli_close($db);
 ?>
