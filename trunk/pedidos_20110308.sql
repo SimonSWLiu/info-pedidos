@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.1
+-- version 3.3.9.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 01, 2011 at 04:51 PM
--- Server version: 5.1.39
--- PHP Version: 5.3.1
+-- 主机: localhost
+-- 生成日期: 2011 年 03 月 07 日 16:21
+-- 服务器版本: 5.1.39
+-- PHP 版本: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,13 +16,13 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `pedidos`
+-- 数据库: `pedidos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- 表的结构 `category`
 --
 
 DROP TABLE IF EXISTS `category`;
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单分类信息表' AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `category`
+-- 转存表中的数据 `category`
 --
 
 INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `category` (`cid`, `c_name`, `rid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- 表的结构 `members`
 --
 
 DROP TABLE IF EXISTS `members`;
@@ -71,18 +71,18 @@ CREATE TABLE IF NOT EXISTS `members` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户信息表' AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `members`
+-- 转存表中的数据 `members`
 --
 
 INSERT INTO `members` (`mid`, `email`, `pwd`, `name`, `status`, `level`, `balance`, `ordering_count`, `delivery_count`, `delivery_ratio`) VALUES
-(1, 'benson.chen@infothinker.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 1, 106, 0, 0, 1),
+(1, 'benson.chen@infothinker.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, 1, 80, 0, 0, 1),
 (2, 'benson.rc86@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'benson', 0, 3, 46.3, 0, 0, 1),
-(3, 'test1@mail.com', '21232f297a57a5a743894a0e4a801fc3', 'test1', 0, 3, 79, 0, 0, 1);
+(3, 'test1@mail.com', '21232f297a57a5a743894a0e4a801fc3', 'test1', 0, 3, 64, 0, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- 表的结构 `menu`
 --
 
 DROP TABLE IF EXISTS `menu`;
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='菜单' AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `menu`
+-- 转存表中的数据 `menu`
 --
 
 INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`, `restaurant_id`, `delivery_charges`) VALUES
@@ -117,7 +117,7 @@ INSERT INTO `menu` (`menu_id`, `m_num`, `m_name`, `m_price`, `m_note`, `cat_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedidos_log`
+-- 表的结构 `pedidos_log`
 --
 
 DROP TABLE IF EXISTS `pedidos_log`;
@@ -141,35 +141,39 @@ CREATE TABLE IF NOT EXISTS `pedidos_log` (
   `total_price` float NOT NULL COMMENT '总价',
   `note` text NOT NULL COMMENT '备注',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '订单状态：0：未处理；1、通过；2、不通过',
+  `type_tag` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型：0：菜单；1：外卖费',
   PRIMARY KEY (`log_id`),
   KEY `mid` (`mid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
--- Dumping data for table `pedidos_log`
+-- 转存表中的数据 `pedidos_log`
 --
 
-INSERT INTO `pedidos_log` (`log_id`, `mid`, `edit_time`, `year`, `month`, `day`, `hour`, `minute`, `rid`, `r_name`, `cid`, `c_name`, `menu_id`, `dish_name`, `unit_price`, `dish_count`, `total_price`, `note`, `status`) VALUES
-(1, 1, 1296811788, 2011, 2, 11, 10, 31, 1, '大西豪', 1, '套餐', 2, '蝴蝶骨套餐', 25, 1, 25, '', 1),
-(2, 1, 1297095311, 2011, 2, 11, 10, 59, 1, '大西豪', 6, '粥粉', 1, '玉燕饺米线', 15, 1, 15, '', 1),
-(3, 1, 1297180373, 2011, 2, 11, 11, 29, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0),
-(4, 1, 1297392671, 2011, 2, 11, 11, 30, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0),
-(5, 1, 1297407634, 2011, 2, 11, 11, 0, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 0),
-(6, 2, 1297417127, 2011, 2, 11, 17, 38, 1, '大西豪', 1, '套餐', 2, '蝴蝶骨套餐', 25, 1, 25, '', 0),
-(7, 2, 1297417127, 2011, 2, 15, 10, 10, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0),
-(8, 1, 1297417505, 2011, 2, 16, 10, 45, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 1),
-(9, 2, 1297417639, 2011, 2, 16, 11, 29, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 1),
-(10, 2, 1297865686, 2011, 2, 16, 22, 14, 2, '华辉', 0, '', 0, '', 1, 1, 1, '外卖费', 1),
-(11, 1, 1297869094, 2011, 2, 16, 23, 11, 2, '华辉', 0, '', 0, '', 0.5, 1, 0.5, '外卖费', 1),
-(12, 2, 1297869094, 2011, 2, 24, 10, 11, 2, '华辉', 0, '', 0, '', 0.5, 1, 0.5, '外卖费', 1),
-(13, 1, 1297947078, 2011, 2, 24, 10, 59, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '65477', 0),
-(14, 3, 1298901360, 2011, 3, 2, 10, 56, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 20, '1蚊额外附加', 1),
-(15, 3, 1298901482, 2011, 3, 2, 21, 58, 1, '大西豪', 0, '', 0, '', 2, 1, 2, '外卖费', 1);
+INSERT INTO `pedidos_log` (`log_id`, `mid`, `edit_time`, `year`, `month`, `day`, `hour`, `minute`, `rid`, `r_name`, `cid`, `c_name`, `menu_id`, `dish_name`, `unit_price`, `dish_count`, `total_price`, `note`, `status`, `type_tag`) VALUES
+(1, 1, 1296811788, 2011, 2, 11, 10, 31, 1, '大西豪', 1, '套餐', 2, '蝴蝶骨套餐', 25, 1, 25, '', 1, 0),
+(2, 1, 1297095311, 2011, 2, 11, 10, 59, 1, '大西豪', 6, '粥粉', 1, '玉燕饺米线', 15, 1, 15, '', 1, 0),
+(3, 1, 1297180373, 2011, 2, 11, 11, 29, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0, 0),
+(4, 1, 1297392671, 2011, 2, 11, 11, 30, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0, 0),
+(5, 1, 1297407634, 2011, 2, 11, 11, 0, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 0, 0),
+(6, 2, 1297417127, 2011, 2, 11, 17, 38, 1, '大西豪', 1, '套餐', 2, '蝴蝶骨套餐', 25, 1, 25, '', 0, 0),
+(7, 2, 1297417127, 2011, 2, 15, 10, 10, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '', 0, 0),
+(8, 1, 1297417505, 2011, 2, 16, 10, 45, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 1, 0),
+(9, 2, 1297417639, 2011, 2, 16, 11, 29, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 1, 0),
+(10, 2, 1297865686, 2011, 2, 16, 22, 14, 2, '华辉', 0, '', 0, '', 1, 1, 1, '外卖费', 1, 0),
+(11, 1, 1297869094, 2011, 2, 16, 23, 11, 2, '华辉', 0, '', 0, '', 0.5, 1, 0.5, '外卖费', 1, 0),
+(12, 2, 1297869094, 2011, 2, 24, 10, 11, 2, '华辉', 0, '', 0, '', 0.5, 1, 0.5, '外卖费', 1, 0),
+(13, 1, 1297947078, 2011, 3, 3, 10, 59, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 19, '65477', 0, 0),
+(14, 3, 1298901360, 2011, 3, 3, 10, 56, 1, '大西豪', 1, '套餐', 3, '老娘叉烧套餐', 19, 1, 20, '1蚊额外附加', 1, 0),
+(15, 3, 1298901482, 2011, 3, 3, 21, 58, 1, '大西豪', 0, '', 0, '', 2, 1, 2, '外卖费', 1, 0),
+(16, 1, 1299081520, 2011, 3, 7, 11, 28, 2, '华辉', 7, '饭', 7, '梅菜肉饼饭', 11, 1, 11, '', 0, 0),
+(17, 1, 1299081520, 2011, 3, 7, 11, 28, 1, '大西豪', 6, '粥粉', 1, '玉燕饺米线', 15, 1, 15, '', 0, 0),
+(18, 3, 1299081594, 2011, 3, 7, 10, 59, 1, '大西豪', 6, '粥粉', 1, '玉燕饺米线', 15, 1, 15, '', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recharge_log`
+-- 表的结构 `recharge_log`
 --
 
 DROP TABLE IF EXISTS `recharge_log`;
@@ -183,14 +187,14 @@ CREATE TABLE IF NOT EXISTS `recharge_log` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `recharge_log`
+-- 转存表中的数据 `recharge_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `restaurant`
+-- 表的结构 `restaurant`
 --
 
 DROP TABLE IF EXISTS `restaurant`;
@@ -203,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='餐馆信息' AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `restaurant`
+-- 转存表中的数据 `restaurant`
 --
 
 INSERT INTO `restaurant` (`rid`, `r_name`, `delivery_charges`) VALUES
@@ -219,7 +223,7 @@ INSERT INTO `restaurant` (`rid`, `r_name`, `delivery_charges`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test`
+-- 表的结构 `test`
 --
 
 DROP TABLE IF EXISTS `test`;
@@ -229,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `test` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `test`
+-- 转存表中的数据 `test`
 --
 
 INSERT INTO `test` (`test_f`) VALUES

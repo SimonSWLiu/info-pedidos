@@ -98,6 +98,14 @@ for ($i = 0; $i < count($ratio_arr) - 1; $i++) {
 	}
 }
 $update = "UPDATE members SET balance=balance-1 WHERE mid='$max'"; // 扣除外卖费
+$result3 = mysqli_query($update);
+$affected_rows = mysqli_affected_rows($db);
+if ($affected_rows == 1) {
+	// 扣除外卖费成功
+	// 写入日志
+	$insert = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
+						 VALUES()";
+}
 
 echo $max;
 exit;
