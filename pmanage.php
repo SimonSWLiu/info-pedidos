@@ -88,7 +88,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$ratio_arr[] = array('mid'=>$row['mid'], 'ratio'=>$ratio['delivery_ratio']);
 }
 // 找出ratio最少的家伙，他负责付这次的外卖费
-print_r($ratio_arr);
+for ($i = 0; $i < count($ratio_arr) - 1; $i++) {
+	for ($j = 1; $j < count($ratio_arr); $j++) {
+		if ($ratio_arr[$i]['ratio'] > $ratio_arr[$j]['ratio']) {
+			$max = $ratio_arr[$i]['mid'];
+		} else {
+			$max = $ratio_arr[$j]['mid'];
+		}
+	}
+}
+$update = "UPDATE members SET balance=balance-1 WHERE mid='$max'"; // 扣除外卖费
+
+echo $max;
 exit;
 
 mysqli_close($db);
