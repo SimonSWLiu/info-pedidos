@@ -130,7 +130,7 @@ mysqli_close($db);
 	</ul>
 	<table style="text-align: left; clear: both;" border="1">
 		<tr>
-			<th><label><input type="checkbox" name="allLogs" />全选</label></th>
+			<th><label><input type="checkbox" name="allLogs" onClick="selectAll(this)" />全选</label></th>
 			<th>点餐人</th>
 			<th>餐厅</th>
 			<th>类别</th>
@@ -180,7 +180,7 @@ mysqli_close($db);
 		</tr>
 	</table>
 	<input type="button" value="通过" onClick="selectLogs();" />
-	<div>
+	<div class="menu-list">
 		<table style="text-align: left; clear: both;" border="1">
 			<tr>
 				<th>餐厅</th>
@@ -205,6 +205,18 @@ mysqli_close($db);
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 <script type="text/javascript">
+function selectAll(_this) {
+	var all = _this.checked;
+	var logs = document.getElementsByName('selectLog');
+	for (var i = 0; i < logs.length; i++) {
+		if (all == true) {
+			logs[i].checked = true;
+		} else {
+			logs[i].checked = false;
+		}
+	}
+}
+
 function selectLogs() {
 	var logs = document.getElementsByName('selectLog');
 	var logsStr = '';

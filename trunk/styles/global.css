@@ -26,3 +26,5 @@ body { overflow: hidden; }
 /*.login-win input { border: solid 1px #F00; }*/
 
 .order-list { width: 250px; border-collapse: collapse; }
+
+.menu-list { padding-top: 20px; }
