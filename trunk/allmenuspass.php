@@ -15,118 +15,58 @@ if ($_GET) {
 		$totalPrice = $log['total_price'];
 		$status = $log['status'];
 		if ($status != 1) { // 未通过或不通过的情况
-//			$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
-//			$result = $db->query($sql);
-//			unset($result);
-			$sql = "UPDATE pedidos_log SET status='1' WHERE log_id='$row'";
+			$sql = "UPDATE pedidos_log SET status='1' WHERE log_id='$row'"; // 设为通过
 			$affected_row = $db->query($sql);
 			if ($affected_row == 1) { // 点餐次数加一
 				$sql = "UPDATE members SET ordering_count=ordering_count+1 WHERE mid='$mid'";
 				$db->query($sql);
 			}
 		}
-		
-		// 判断今日的点餐谁需要缴付外卖费
-		
-		// 未完成
-		
+		$sql1 = "SELECT * FROM members WHERE mid='$mid'";
+		$result1 = mysqli_query($db, $sql1);
+		$deliveryRatio = mysqli_fetch_assoc($result1);
+		$memberArr[$mid] = $deliveryRatio; // 获取今天点餐的会员信息
+	}
+	// 判断今日的点餐谁需要缴付外卖费
+	$min = 2;
+	$minId = 0;
+	foreach ($memberArr as $key=>$row) {
+		if ($row['delivery_ratio'] < $min) {
+			$min = $row['delivery_ratio'];
+			$minId = $key;
+		}
+	}
+	$delivery = 1; // 外卖费一元
+	$sql2 = "UPDATE members
+					 SET delivery_count=delivery_count+1,delivery_ratio=delivery_count/ordering_count,balance=balance-$delivery
+					 WHERE mid='$minId'";
+	$result2 = mysqli_query($db, $sql2);
+	$affected_rows = mysqli_affected_rows($db);
+	if ($affected_rows == 1) {
+		$editTime = time();
+		$dateArr = getdate();
+		$todayYear = $dateArr['year'];
+		$todayMonth = $dateArr['mon'];
+		$todayDay = $dateArr['mday'];
+		$todayHour = $dateArr['hours'];
+		$todayMin = $dateArr['minutes'];
+		$sql3 = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,
+						 `r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
+						 VALUES('$minId','$editTime','$todayYear','$todayMonth','$todayDay','$todayHour','$todayMin',
+						 '0','0','0','0','0','0','0','0','$delivery','外卖费','1','1')";
+		$result3 = mysqli_query($db, $sql3);
+		if (mysqli_affected_rows($db) == 1) {
+			
+		}
 	}
 	
 	// 获取今天11：30分前的订单
-	$dateArr = getdate();
-	$todayYear = $dateArr['year'];
-	$todayMonth = $dateArr['mon'];
-	$todayDay = $dateArr['mday'];
-	$sql = "SELECT DISTINCT mid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
-	$result = mysqli_query($db, $sql);
-	
-	// 计算每人的外卖费
-//	$rid = array();
-//	$log_arr = $logArr;
-//	unset($logArr);
-//	foreach ($log_arr as $row) {
-//		$sql = "SELECT * FROM pedidos_log WHERE log_id='$row'";
-//		$result = mysqli_query($db, $sql);
-//		while ($rowset = mysqli_fetch_assoc($result)) {
-//			$logArr[] = $rowset;
-//		}
-//		mysqli_free_result($result); // 清空结果集
-//	}
-//	foreach($logArr as $row) { // 遍历今日的点餐日志
-//		if($rid) {
-//			for($i = 0; $i < count($rid); $i++) {
-//				if($rid[$i]['rid'] == $row['rid'] && $rid[$i]['mid'] == $row['mid']) {
-//					$rid[$i]['count']++;
-//					break;
-//				} else {
-//					$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
-//					break;
-//				}
-//			}
-//		} else {
-//			$rid[] = array('rid'=>$row['rid'], 'mid'=>$row['mid'], 'count'=>1);
-//		}
-//	}
-//	
-//	$restaurant_count = array(); // 点了指定餐厅的人数
-//	foreach($rid as $row) {
-//		if($restaurant_count) {
-//			for($i = 0; $i < count($restaurant_count); $i++) {
-//				if($row['rid'] == $restaurant_count[$i]['rid']) {
-//					$restaurant_count[$i]['count']++;
-//					break;
-//				} else {
-//					$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
-//					break;
-//				}
-//			}
-//		} else {
-//			$restaurant_count[] = array('rid'=>$row['rid'], 'count'=>1);
-//		}
-//	}
-//	
-//	for($i = 0; $i < count($restaurant_count); $i++) {
-//		$r_id = $row['rid'];
-//		$sql = "SELECT delivery_charges FROM restaurant WHERE rid='$r_id'";
-//		$result = mysqli_query($db, $sql);
-//		$charge_row = mysqli_fetch_assoc($result);
-//		$charge = $charge_row['delivery_charges'];
-//		$averageCharge = (float)$charge / $restaurant_count[$i]['count'];
-//		$averageCharge = ceil($averageCharge * 100) / 100;
-//		$restaurant_count[$i]['averageCharge'] = $averageCharge; // 平均每人的外卖费
-//		
-//	}
-//	foreach($restaurant_count as $row) {
-//		foreach($rid as $row2) {
-//			if($row['rid'] == $row2['rid']) {
-//				$averageCharge = $row['averageCharge'];
-//				$mid = $row2['mid'];
-//				$sql = "UPDATE members SET balance=balance-'$averageCharge' WHERE mid='$mid'";
-//				$result = mysqli_query($db, $sql);
-//				$affectedRow = mysqli_affected_rows($db);
-//				if($affectedRow == 1) {
-//					$time = time();
-//					$timeArr = getdate();
-//					$sql = "SELECT * FROM restaurant WHERE rid='{$row['rid']}'";
-//					$result = mysqli_query($db, $sql);
-//					$restaurantRow = mysqli_fetch_assoc($result);
-//					$rName = $restaurantRow['r_name'];
-//					$sql = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`)
-//									VALUES('$mid','$time','{$timeArr['year']}','{$timeArr['mon']}','{$timeArr['mday']}','{$timeArr['hours']}','{$timeArr['minutes']}','{$row2['rid']}','$rName','0','','0','','$averageCharge','1','$averageCharge','外卖费','1')";
-//					$result = mysqli_query($db, $sql);
-//					$affectedRow = mysqli_affected_rows($db);
-//				}
-//			}
-//		}
-//	}
-
-	
-	
-	
-	
-	
-	
-	
+//	$dateArr = getdate();
+//	$todayYear = $dateArr['year'];
+//	$todayMonth = $dateArr['mon'];
+//	$todayDay = $dateArr['mday'];
+//	$sql = "SELECT DISTINCT mid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+//	$result = mysqli_query($db, $sql);
 	
 	echo '1';
 	exit;

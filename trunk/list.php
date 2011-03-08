@@ -33,14 +33,14 @@ if ($list) {
 	}
 }
 ?>
-<div style="color: #FFFFFF; float: left; margin: 30px 0; width: 100%;">
+<div style="float: left; margin: 30px 0; width: 100%;">
 	<div>我的餐单</div>
-	<form method="post" action="submitmenu.php" onsubmit="return menuValidate()" style="background-color: #F00;">
-		<table>
-			<tr>
+	<form method="post" action="submitmenu.php" onsubmit="return menuValidate()">
+		<table border="1" class="order-list">
+			<tr style="background-color: #D2E8FF;">
 				<td>菜名</td>
-				<td>数量</td>
-				<td>单价</td>
+				<td width="32">数量</td>
+				<td width="32">单价</td>
 			</tr>
 		<?php 
 		if ($list):

@@ -56,7 +56,6 @@ $menuList[0]['unit_price'] = $logArr[0]['unit_price'];
 $menuList[0]['dish_count'] = $logArr[0]['dish_count'];
 $menuList[0]['total_price'] = $logArr[0]['total_price'];
 $menuList[0]['menu_id'] = $logArr[0]['menu_id'];
-//foreach ($logArr as $row) {
 for ($j = 1; $j < count($logArr); $j++) {
 	$row = $logArr[$j];
 	$menuId = $row['menu_id'];
@@ -76,39 +75,40 @@ for ($j = 1; $j < count($logArr); $j++) {
 asort($menuList);
 
 // 找出不重复的今天下订单的会员id
-$sql = "SELECT DISTINCT mid FROM pedidos_log
-				WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
-$result = mysqli_query($db, $sql);
-$ratio_arr = array();
-while ($row = mysqli_fetch_assoc($result)) {
-	$sql1 = "SELECT delivery_ratio FROM members WHERE mid='{$row['mid']}'";
-	$result1 = mysqli_query($db, $sql1);
-	$ratio = mysqli_fetch_assoc($result1);
-//	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
-	$ratio_arr[] = array('mid'=>$row['mid'], 'ratio'=>$ratio['delivery_ratio']);
-}
+//$sql = "SELECT DISTINCT mid FROM pedidos_log
+//				WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+//$result = mysqli_query($db, $sql);
+//$ratio_arr = array();
+//while ($row = mysqli_fetch_assoc($result)) {
+//	$sql1 = "SELECT delivery_ratio FROM members WHERE mid='{$row['mid']}'";
+//	$result1 = mysqli_query($db, $sql1);
+//	$ratio = mysqli_fetch_assoc($result1);
+////	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
+//	$ratio_arr[] = array('mid'=>$row['mid'], 'ratio'=>$ratio['delivery_ratio']);
+//}
 // 找出ratio最少的家伙，他负责付这次的外卖费
-for ($i = 0; $i < count($ratio_arr) - 1; $i++) {
-	for ($j = 1; $j < count($ratio_arr); $j++) {
-		if ($ratio_arr[$i]['ratio'] > $ratio_arr[$j]['ratio']) {
-			$max = $ratio_arr[$i]['mid'];
-		} else {
-			$max = $ratio_arr[$j]['mid'];
-		}
-	}
-}
-$update = "UPDATE members SET balance=balance-1 WHERE mid='$max'"; // 扣除外卖费
-$result3 = mysqli_query($update);
-$affected_rows = mysqli_affected_rows($db);
-if ($affected_rows == 1) {
-	// 扣除外卖费成功
-	// 写入日志
-	$insert = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
-						 VALUES()";
-}
+//for ($i = 0; $i < count($ratio_arr) - 1; $i++) {
+//	for ($j = 1; $j < count($ratio_arr); $j++) {
+//		if ($ratio_arr[$i]['ratio'] > $ratio_arr[$j]['ratio']) {
+//			$max = $ratio_arr[$i]['mid'];
+//		} else {
+//			$max = $ratio_arr[$j]['mid'];
+//		}
+//	}
+//}
+//$update = "UPDATE members SET balance=balance-1 WHERE mid='$max'"; // 扣除外卖费
+//$result3 = mysqli_query($db, $update);
+//$affected_rows = mysqli_affected_rows($db);
+//if ($affected_rows == 1) {
+//	// 扣除外卖费成功
+//	// 写入日志
+//	$mid = $_SESSION['login']['mid'];
+//	$edit_time = time();
+//	
+//	$insert = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
+//						 VALUES('{$_SESSION['login']}','')";
+//}
 
-echo $max;
-exit;
 
 mysqli_close($db);
 ?>
@@ -208,10 +208,16 @@ mysqli_close($db);
 function selectLogs() {
 	var logs = document.getElementsByName('selectLog');
 	var logsStr = '';
+	var tag = 0;
 	for (var i = 0; i < logs.length; i++) {
 		if (logs[i].checked == true) {
 			logsStr += logs[i].value + ';';
+			tag = 1;
 		}
+	}
+	if (tag == 0) { // 一个都没有勾选
+		alert('没有勾选任何菜单.');
+		return false;
 	}
 	$.get('/allmenuspass.php', {
 		logs: logsStr
