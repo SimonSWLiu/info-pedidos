@@ -5,6 +5,7 @@
 		<li id="myAccount">
 			<a href="myaccount.php" target="main_frame">我的账户</a>
 			<ul style="display: none;">
+				<li><a href="editname.php" target="main_frame" id="editName">修改姓名</a></li>
 				<li><a href="changepwd.php" target="main_frame" id="changePwd">修改密码</a></li>
 				<li><a href="balance.php" target="main_frame" id="myBalance">我的余额</a></li>
 				<li><a href="orderhistory.php" target="main_frame" id="orderHistory">我的点餐历史</a></li>
