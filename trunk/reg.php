@@ -23,9 +23,10 @@ if ($_POST) {
 		header('location: /reg.php?msg=请输入正确的电子邮箱');
 		exit;
 	}
-	$sql = "SELECT COUNT(*) FROM members WHERE email=$email OR name=$name";
+	$sql = "SELECT COUNT(*) count FROM members WHERE email='$email' OR name='$name'";
 	$result = $db->query($sql);
-	if ($result) {
+	$count = mysqli_fetch_assoc($result);
+	if ($count['count'] != 0) {
 		header('location: /reg.php?msg=帐号已存在');
 		exit;
 	}

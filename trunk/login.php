@@ -1,7 +1,8 @@
 <?php
 include 'config.php';
 include 'db.php';
-if (isset($_SESSION['login'])) header('location: /pedidos.php');
+if (isset($_SESSION['login'])) header('location: /pedidos.php'); // 已登录的跳转到pedidos.php页面
+
 if ($_POST) {
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
@@ -25,6 +26,7 @@ if ($_POST) {
 	}
 }
 ?>
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

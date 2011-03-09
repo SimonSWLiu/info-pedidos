@@ -121,34 +121,34 @@ while ( $row = mysqli_fetch_assoc ( $result2 ) ) {
 <div>
 <table border="1" style="border-collapse: collapse; width: 700px; border-color: #D2E8FF;">
 	<?php foreach ( $rest as $key => $row ) : ?>
-	<tr>
+	<tr class="t-title">
 		<th colspan="4"><?php echo $row; ?></th>
 	</tr>
 	<?php	foreach ( $category as $catKey => $cat ) :
 	if ($key == $cat ['rid']) : ?>
-	<tr>
+	<tr class="t-title">
 		<th colspan="4"><?php	echo $cat ['c_name'];	?></th>
 	</tr>
-	<tr>
+	<tr class="t-title">
 		<th>菜名</th>
 		<th>单价</th>
 		<th>说明</th>
 		<th>操作</th>
 	</tr>
-			<?php foreach ( $menus as $mKey => $mArr ) :
-			if ($catKey == $mArr ['cat_id']) : ?>
-			<tr>
-				<td><?php echo $mArr ['m_name']; ?></td>
-				<td><?php echo '￥' . number_format($mArr ['m_price'], 2, '.', ','); ?></td>
-				<td><?php echo $mArr ['m_note']; ?></td>
-				<td><form action="menu.php" method="post"><input type="hidden" name="menu_id" value="<?php echo $mKey; ?>" /><input type="submit" value="提交" /></td></form>
-			</tr>
-			<?php endif;
-						endforeach;
-					endif;
+	<?php foreach ( $menus as $mKey => $mArr ) :
+	if ($catKey == $mArr ['cat_id']) : ?>
+	<tr>
+		<td><?php echo $mArr ['m_name']; ?></td>
+		<td><?php echo '￥' . number_format($mArr ['m_price'], 2, '.', ','); ?></td>
+		<td><?php echo $mArr ['m_note']; ?></td>
+		<td><form action="menu.php" method="post"><input type="hidden" name="menu_id" value="<?php echo $mKey; ?>" /><input type="submit" value="提交" /></td></form>
+	</tr>
+	<?php endif;
 				endforeach;
-			endforeach; ?>
-		</table>
+			endif;
+		endforeach;
+	endforeach; ?>
+</table>
 </div>
 
 <?php

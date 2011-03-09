@@ -41,6 +41,10 @@ $('#myAccount').click(function() {
 	return false;
 });
 
+$('#editName').click(function(event) {
+	event.stopPropagation();
+});
+
 $('#changePwd').click(function(event) {
 	event.stopPropagation();
 });
