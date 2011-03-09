@@ -2,6 +2,11 @@
 // 菜单管理页面
 include 'config.php';
 include 'db.php';
+
+if (!isset($_SESSION['login']) || $_SESSION['login']['level'] > 3) {
+	exit('没有权限');
+}
+
 if ($_GET) {
 	$name = trim($_GET['restaurant_name']);
 	$delivery = floatval($_GET['delivery_changes']);

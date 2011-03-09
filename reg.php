@@ -31,7 +31,7 @@ if ($_POST) {
 	}
 	$sql = "INSERT INTO members(email,name,pwd) VALUES('$email','$name','" . md5($pwd) . "')";
 	$result = $db->query($sql);
-	if ($result) exit('success');
+	if ($result) exit('success<br /><a href="/">login.</a>');
 	else exit('注册失败');
 	header('location: /login.php');
 }

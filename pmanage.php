@@ -2,6 +2,10 @@
 include 'config.php';
 include 'db.php';
 
+if (!isset($_SESSION['login']) || $_SESSION['login']['level'] == 3) {
+	exit('没有权限');
+}
+
 $sql = "SELECT * FROM restaurant";
 $result = mysqli_query($db, $sql);
 $restaurant = array();
@@ -13,12 +17,16 @@ $dateArr = getdate();
 $todayYear = $dateArr['year'];
 $todayMonth = $dateArr['mon'];
 $todayDay = $dateArr['mday'];
+// 获取今日的餐单
 $sql = "SELECT pedidos_log.*,members.name
 				FROM pedidos_log,members
-				WHERE pedidos_log.mid=members.mid AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+				WHERE pedidos_log.mid=members.mid AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND type_tag=0";
+
+// 找出今天订单中的餐厅id
 $sql2 = "SELECT DISTINCT rid
 				 FROM pedidos_log
-				 WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
+				 WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND type_tag=0";
+
 if ($_GET) {
 	$rid = addslashes($_GET['rid']);
 	$sql .= " AND rid='$rid'";
@@ -109,6 +117,10 @@ asort($menuList);
 //						 VALUES('{$_SESSION['login']}','')";
 //}
 
+$totalPrice = 0;
+foreach($menuList as $row){
+	$totalPrice += $row['total_price'];
+}
 
 mysqli_close($db);
 ?>
@@ -200,6 +212,10 @@ mysqli_close($db);
 				<td><?php echo $row['total_price']; ?></td>
 			</tr>
 			<?php endforeach; ?>
+			<tr>
+				<td colspan="2">总价</td>
+				<td colspan="4"><?php echo $totalPrice; ?></td>
+			</tr>
 		</table>
 	</div>
 <script type="text/javascript" src="scripts/jquery.js"></script>
@@ -231,13 +247,14 @@ function selectLogs() {
 		alert('没有勾选任何菜单.');
 		return false;
 	}
-	$.get('/allmenuspass.php', {
-		logs: logsStr
-	}, function(data) {
-		if (data == '1') {
-			window.location.href = 'pmanage.php';
-		}
-	});
+	window.location.href="/allmenuspass.php?logs=" + logsStr;
+//	$.get('/allmenuspass.php', {
+//		logs: logsStr
+//	}, function(data) {
+//		if (data == '1') {
+//			window.location.href = 'pmanage.php';
+//		}
+//	});
 }
 </script>
 </body>
