@@ -1,6 +1,9 @@
 <?php
 include 'config.php';
 include 'db.php';
+if (!isset($_SESSION['login']) || $_SESSION['login']['level'] > 3) {
+	exit('没有权限');
+}
 $sql = "SELECT * FROM members";
 $result = $db->query($sql);
 $members = array();
@@ -27,11 +30,11 @@ while ($row = $result->fetch_assoc()) {
 		</tr>
 	<?php foreach ($members as $row): ?>
 		<tr>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['name']; ?></a></td>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['email']; ?></a></td>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['status']; ?></a></td>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['level']; ?></a></td>
-			<td><a href=".php?mid=<?php echo $row['mid']; ?>"><?php echo $row['balance']; ?></a></td>
+			<td><?php echo $row['name']; ?></td>
+			<td><?php echo $row['email']; ?></td>
+			<td><?php echo $row['status']; ?></td>
+			<td><?php echo $row['level']; ?></td>
+			<td><?php echo $row['balance']; ?></td>
 			<td><a href="recharge.php?mid=<?php echo $row['mid']; ?>">充值</a> <a href="resetpwd.php?mid=<?php echo $row['mid']; ?>" onClick="if (!confirm('确定要重置密码?')) return false;">重置密码</a> <a href=".php?mid=<?php echo $row['mid']; ?>">冻结</a></td>
 		</tr>
 	<?php endforeach; ?>

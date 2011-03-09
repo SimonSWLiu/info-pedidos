@@ -10,6 +10,7 @@ foreach ($list as $row) {
 	$menu['menu_count'] = $cache[1];
 	$menus[] = $menu;
 }
+unset($menu);
 //print_r($menus);
 //exit;
 
@@ -19,15 +20,15 @@ $sql = "SELECT balance FROM members WHERE mid='{$_SESSION['login']['mid']}'";
 $result = $db->query($sql);
 $balanceArr = $result->fetch_assoc();
 $balance = $balanceArr['balance'];
-if ($list) {
-	foreach ($list as $row) {
+if ($menus) {
+	foreach ($menus as $row) {
 		$sql = "SELECT * FROM menu WHERE menu_id='{$row['menu_id']}'";
 		$result = $db->query($sql);
 		$menu = $result->fetch_assoc();
-		$menuArr = explode(':', $row);
+//		$menuArr = explode(':', $row);
 		$pArr['name'] = $menu['m_name'];
 		$pArr['price'] = $menu['m_price'];
-		$pArr['count'] = $menuArr[1];
+		$pArr['count'] = $row['menu_count'];
 		$pedidos[] = $pArr;
 		$price += $pArr['count'] * $menu['m_price'];
 	}
@@ -56,7 +57,7 @@ if ($list) {
 		</table>
 		<div>外卖费：<span></span></div>
 		<div>总价: <span id="total"><?php echo $price; ?></span> 余额：<span id="balance"><?php echo $balance; ?></span></div>
-		<input type="submit" value="提交" /><input type="button" value="清空" onclick="document.cookie = 'pedidos=\'\';expires=0'; parent.history.go(0);" />
+		<input type="submit" value="确认" /><input type="button" value="清空" onclick="document.cookie = 'pedidos=\'\';expires=0'; parent.history.go(0);" />
 	</form>
 </div>
 <script type="text/javascript">

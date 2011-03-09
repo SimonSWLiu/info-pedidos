@@ -1,6 +1,9 @@
 <?php 
 include 'config.php';
 include 'db.php';
+if (!isset($_SESSION['login'])) {
+	header('location: /login.php');
+}
 if ($_POST) {
 	$menuArr = $_POST['menu'];
 	foreach ($menuArr as $row) {

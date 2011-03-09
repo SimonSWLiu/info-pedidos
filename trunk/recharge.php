@@ -1,6 +1,9 @@
 <?php 
 include 'config.php';
 include 'db.php';
+if (!isset($_SESSION['login']) || $_SESSION['login']['level'] > 2) {
+	exit('没有权限');
+}
 if ($_POST) {
 	$mid = $_POST['mid'];
 	$sql = "SELECT * FROM members WHERE mid='$mid'";

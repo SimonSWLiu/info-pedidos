@@ -36,13 +36,46 @@ if ($_GET) {
 			$minId = $key;
 		}
 	}
-	$delivery = 1; // 外卖费一元
+	
+	// 显示被扣外卖费的用户
+	$sql4 = "SELECT * FROM members WHERE mid='$minId'";
+	$result4 = mysqli_query($db, $sql4);
+	$member = mysqli_fetch_assoc($result4);
+	
+//	$delivery = 1; // 外卖费一元
+//	$sql2 = "UPDATE members
+//					 SET delivery_count=delivery_count+1,delivery_ratio=delivery_count/ordering_count,balance=balance-$delivery
+//					 WHERE mid='$minId'";
+//	$result2 = mysqli_query($db, $sql2);
+//	$affected_rows = mysqli_affected_rows($db);
+//	if ($affected_rows == 1) {
+//		$editTime = time();
+//		$dateArr = getdate();
+//		$todayYear = $dateArr['year'];
+//		$todayMonth = $dateArr['mon'];
+//		$todayDay = $dateArr['mday'];
+//		$todayHour = $dateArr['hours'];
+//		$todayMin = $dateArr['minutes'];
+//		$sql3 = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,
+//						 `r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
+//						 VALUES('$minId','$editTime','$todayYear','$todayMonth','$todayDay','$todayHour','$todayMin',
+//						 '0','0','0','0','0','0','0','0','$delivery','外卖费','1','1')";
+//		$result3 = mysqli_query($db, $sql3);
+//		if (mysqli_affected_rows($db) == 1) {
+//			
+//		}
+//	}
+}
+
+if ($_POST) {
+	$mid = $_POST['mid'];
+	$delivery = $_POST['delivery'];
+	
 	$sql2 = "UPDATE members
 					 SET delivery_count=delivery_count+1,delivery_ratio=delivery_count/ordering_count,balance=balance-$delivery
-					 WHERE mid='$minId'";
+					 WHERE mid='$mid'";
 	$result2 = mysqli_query($db, $sql2);
-	$affected_rows = mysqli_affected_rows($db);
-	if ($affected_rows == 1) {
+	if (mysqli_affected_rows($db) == 1) {
 		$editTime = time();
 		$dateArr = getdate();
 		$todayYear = $dateArr['year'];
@@ -50,25 +83,36 @@ if ($_GET) {
 		$todayDay = $dateArr['mday'];
 		$todayHour = $dateArr['hours'];
 		$todayMin = $dateArr['minutes'];
-		$sql3 = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,
-						 `r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
-						 VALUES('$minId','$editTime','$todayYear','$todayMonth','$todayDay','$todayHour','$todayMin',
-						 '0','0','0','0','0','0','0','0','$delivery','外卖费','1','1')";
-		$result3 = mysqli_query($db, $sql3);
+		$sql = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,
+						`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
+						VALUES('$mid','$editTime','$todayYear','$todayMonth','$todayDay','$todayHour','$todayMin',
+						'0','0','0','0','0','0','0','0','$delivery','外卖费','1','1')";
+		$result = mysqli_query($db, $sql);
 		if (mysqli_affected_rows($db) == 1) {
-			
+			exit('操作成功');
+		} else {
+			exit('外卖费处理失败.');
 		}
 	}
-	
-	// 获取今天11：30分前的订单
-//	$dateArr = getdate();
-//	$todayYear = $dateArr['year'];
-//	$todayMonth = $dateArr['mon'];
-//	$todayDay = $dateArr['mday'];
-//	$sql = "SELECT DISTINCT mid FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
-//	$result = mysqli_query($db, $sql);
-	
-	echo '1';
-	exit;
 }
+
+mysqli_close($db);
 ?>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>点餐管理</title>
+<link type="text/css" rel="stylesheet" href="styles/global.css" />
+</head>
+<body>
+	<div>
+		<h4>负责外卖费的人：</h4>
+		<div><?php echo $member['name']; ?></div>
+		<form action="/allmenuspass.php" method="post">
+			<input type="hidden" name="mid" value="<?php echo $member['mid']; ?>" />
+			<input type="text" name="delivery" value="1" />
+			<input type="submit" value="提交" />
+		</form>
+	</div>
+</body>
+</html>

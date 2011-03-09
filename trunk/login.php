@@ -37,7 +37,7 @@ if ($_POST) {
 <div class="login-win">
 	<span><?= isset($_GET['msg'])? $_GET['msg']:''; ?></span>
 	<form action="" method="post">
-		<label for="user">用户名: </label><br /><input type="text" name="user" id="user" /><br />
+		<label for="user">用户名或邮箱: </label><br /><input type="text" name="user" id="user" /><br />
 		<label for="user">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
 <!--		<input type="checkbox" id="remember" /><label for="remember">下次记住我</label><br />-->
 		<input type="submit" value="登 录" />
