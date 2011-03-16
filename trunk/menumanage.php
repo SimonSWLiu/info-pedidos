@@ -9,8 +9,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login']['level'] > 3) {
 
 if ($_GET) {
 	$name = trim($_GET['restaurant_name']);
-	$delivery = floatval($_GET['delivery_changes']);
-	if (!$name || !$delivery) {
+	$delivery = floatval($_GET['delivery_changes']);	
+	if ($name == '') {
 		echo "You have not entered all the required details.<br />Please go back and try again.";
 		exit;
 	}
