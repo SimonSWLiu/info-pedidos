@@ -1,6 +1,6 @@
 <?php
-include 'config.php';
-include 'db.php';
+include 'pedidos/config.php';
+include 'pedidos/db.php';
 if ($_GET) {
 	$logsStr = $_GET['logs'];
 	$logArr = explode(';', $logsStr);

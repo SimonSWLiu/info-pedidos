@@ -1,6 +1,6 @@
 <?php
-include 'config.php';
-include 'db.php';
+include 'pedidos/config.php';
+include 'pedidos/db.php';
 if ($_POST) {
 	$mName = $_POST['mName'];
 	$mPrice = $_POST['mPrice'];
@@ -10,6 +10,6 @@ if ($_POST) {
 	$sql = "INSERT INTO menu(m_name,m_price,m_note,cat_id,restaurant_id) VALUES('$mName','$mPrice','$mNote','$catId','$rid')";
 	$result = $db->query($sql);
 	mysqli_close($db);
-	header('location:getmenus.php?cid=' . $catId);
+	header('location: pedidos/getmenus.php?cid=' . $catId);
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
-include 'config.php';
-include 'db.php';
+include 'pedidos/config.php';
+include 'pedidos/db.php';
 $sql = "SELECT balance FROM members WHERE mid='{$_SESSION['login']['mid']}'";
 $result = $db->query($sql);
 $row = $result->fetch_assoc();

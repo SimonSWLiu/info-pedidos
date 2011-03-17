@@ -1,6 +1,6 @@
 <?php
-include 'config.php';
-include 'db.php';
+include 'pedidos/config.php';
+include 'pedidos/db.php';
 if (isset($_SESSION['login'])) header('location: /pedidos.php'); // 已登录的跳转到pedidos.php页面
 
 if ($_POST) {
