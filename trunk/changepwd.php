@@ -1,6 +1,6 @@
 <?php
-include 'config.php';
-include 'db.php';
+include 'pedidos/config.php';
+include 'pedidos/db.php';
 if ($_POST) {
 	$oldPwd = $_POST['oldpwd'];
 	$newPwd = $_POST['newpwd'];
