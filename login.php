@@ -1,7 +1,7 @@
 <?php
-include 'pedidos/config.php';
-include 'pedidos/db.php';
-if (isset($_SESSION['login'])) header('location: /pedidos.php'); // 已登录的跳转到pedidos.php页面
+//include 'pedidos/config.php';
+//include 'pedidos/db.php';
+if (isset($_SESSION['login'])) header('location: pedidos.php'); // 已登录的跳转到pedidos.php页面
 
 if ($_POST) {
 	$user = isset($_POST['user'])? $_POST['user']:'';
