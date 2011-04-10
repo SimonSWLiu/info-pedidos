@@ -1,9 +1,9 @@
 <?php
 //include 'pedidos/config.php';
 //include 'pedidos/db.php';
-if (isset($_SESSION['login'])) header('location: pedidos.php'); // 已登录的跳转到pedidos.php页面
+if (isset($_SESSION['login'])) header('location: pedidos/login'); // 已登录的跳转到登录页面
 
-if ($_POST) {
+if ($_POST) { // 登录表单
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
 	if ($user == '' || $pwd == '') {
@@ -22,7 +22,7 @@ if ($_POST) {
 		exit('login success');
 	} else {
 		$msg = '用户名或密码错误';
-		header('location: /login.php?msg=' . $msg);
+		header('location: pedidos/login?msg=' . $msg);
 	}
 }
 ?>
