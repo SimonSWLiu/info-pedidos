@@ -18,7 +18,7 @@ if ($_GET) {
 	mysqli_query($db, $sql);
 	$affectedRow = mysqli_affected_rows($db);
 	if ($affectedRow == 1) {
-		header('location: /pmanage.php');
+		header('location: pmanage.php');
 		exit; 
 	} else {
 		exit('操作失败');
@@ -58,6 +58,6 @@ if ($_GET) {
 		<input type="hidden" name="lid" value="<?php echo $logRow['log_id']; ?>" />
 		<input type="submit" value="Save" />
 	</form>
-	<script type="text/javascript" src="/scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/jquery.js"></script>
 </body>
 </html>

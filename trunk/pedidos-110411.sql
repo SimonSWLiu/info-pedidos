@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.1
+-- version 3.3.9.1
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2011 年 03 月 16 日 10:44
--- 服务器版本: 5.1.39
--- PHP 版本: 5.3.1
+-- 生成日期: 2011 年 04 月 11 日 23:27
+-- 服务器版本: 5.1.37
+-- PHP 版本: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -305,3 +305,23 @@ INSERT INTO `restaurant` (`rid`, `r_name`, `delivery_charges`) VALUES
 (1, '大西豪', 1),
 (5, '华辉', 5),
 (6, '壹鼎', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE IF NOT EXISTS `test` (
+  `test_f` float NOT NULL,
+  PRIMARY KEY (`test_f`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `test`
+--
+
+INSERT INTO `test` (`test_f`) VALUES
+(1.2),
+(1.22);

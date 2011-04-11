@@ -247,7 +247,7 @@ function selectLogs() {
 		alert('没有勾选任何菜单.');
 		return false;
 	}
-	window.location.href="/allmenuspass.php?logs=" + logsStr;
+	window.location.href="allmenuspass.php?logs=" + logsStr;
 //	$.get('/allmenuspass.php', {
 //		logs: logsStr
 //	}, function(data) {

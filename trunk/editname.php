@@ -15,13 +15,13 @@ if ($_POST) {
 	$result2 = mysqli_query($db, $sql2);
 	$count = mysqli_fetch_assoc($result2);
 	if ($count['count'] != 0) { // 已经有人改了这个名字
-		header('location: /editname.php?msg=名称已存在');
+		header('location: editname.php?msg=名称已存在');
 	}
 	$sql = "UPDATE members SET name='$name' WHERE mid='$mid'";
 	$result = mysqli_query($db, $sql);
 	if (mysqli_affected_rows($db) == 1) {
 		$_SESSION['login']['name'] = $name;
-		exit('success!<script>parent.location.href="/pedidos.php"</script>');
+		exit('success!<script>parent.location.href="pedidos.php"</script>');
 	}
 }
 ?>
