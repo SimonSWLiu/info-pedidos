@@ -1,6 +1,6 @@
 <?php
-include 'pedidos/config.php';
-include 'pedidos/db.php';
+include 'config.php';
+include 'db.php';
 if ($_GET) {
 	$logsStr = $_GET['logs'];
 	$logArr = explode(';', $logsStr);
@@ -108,7 +108,7 @@ mysqli_close($db);
 	<div>
 		<h4>负责外卖费的人：</h4>
 		<div><?php echo $member['name']; ?></div>
-		<form action="/allmenuspass.php" method="post">
+		<form action="allmenuspass.php" method="post">
 			<input type="hidden" name="mid" value="<?php echo $member['mid']; ?>" />
 			<input type="text" name="delivery" value="1" />
 			<input type="submit" value="提交" />

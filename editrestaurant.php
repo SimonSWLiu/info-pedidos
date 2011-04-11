@@ -48,7 +48,7 @@ mysqli_close($db);
 	<?php endforeach; ?>
 	</table>
 </div>
-<form action="/addcategory.php" method="get">
+<form action="addcategory.php" method="get">
 	新增分类 : <input type="text" name="category_name" />
 	<input type="hidden" name="rid" value="<?php echo $rid; ?>" />
 	<input type="submit" value="保存" />

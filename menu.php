@@ -40,7 +40,7 @@ if ($_POST) {
 	}
 	
 	setcookie ( 'pedidos', $pedidos, time () + 41400, '/' );
-	exit ( '<script>parent.location.href="/pedidos.php"</script>' );
+	exit ( '<script>parent.location.href=" pedidos.php"</script>' );
 	
 	
 	

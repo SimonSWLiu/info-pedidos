@@ -1,6 +1,6 @@
 <?php 
-include 'pedidos/config.php';
-include 'pedidos/db.php';
+include 'config.php';
+include 'db.php';
 if ($_GET) {
 	$cid = $_GET['cid'];
 	$sql = "DELETE FROM category WHERE cid='$cid'";
