@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+/** {margin: 0; padding: 0; font: 16px/16px Arial, Helvetica, sans-serif; }*/
+* {margin: 0; padding: 0; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.leftbar { position: absolute; left: 0; top: 30px; width: 250px; background-color: #F3F4F6; height: 570px; color: #444444; }
+.leftbar a { color: #444444; font-size: 14px; text-decoration: none; display: block; }
+.leftbar a:hover { background-color: #444444; color: #F3F4F6; }
+
+/*table { border-collapse: collapse; }*/
+
+.header { position: absolute; top: 0; height: 30px; width: 100%; background-color: #444444; color: #FFF; }
+.header a { color: #FFF; }
+ul { margin: 0; padding: 0; }
+li { line-height: 18px; list-style: none outside none; padding: 2px 5px; }
+.herizontal-list li { float: right; padding: 2px 5px; }
+
+.main { position: relative; margin-left: 250px; margin-top: 30px; height: 570px; width: auto; }
+.main-frame { position: relative; width: 100%; height: 330px; }
+
+body { overflow: scroll; }
+.reg-input {width: 3000px;}
+.login-win { margin: auto; padding: 100px 0 0; width: 250px; }
+/*.login-win input { border: solid 1px #F00; }*/
+
+.order-list { width: 250px; border-collapse: collapse; }
+
+.menu-list { padding-top: 20px; }
+.t-title { background-color: #F3F4F6; }

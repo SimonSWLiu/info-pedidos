@@ -1,0 +1,7 @@
+2011-03-25 15:26:28 Debug: Notice (1024): Please change the value of 'Security.salt' in app/config/core.php to a salt value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 684]
+2011-03-25 15:26:28 Debug: Notice (1024): Please change the value of 'Security.cipherSeed' in app/config/core.php to a numeric (digits only) seed value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 688]
+2011-03-25 15:31:21 Debug: Notice (1024): Please change the value of 'Security.salt' in app/config/core.php to a salt value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 684]
+2011-03-25 15:31:21 Debug: Notice (1024): Please change the value of 'Security.cipherSeed' in app/config/core.php to a numeric (digits only) seed value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 688]
+2011-03-25 15:31:40 Debug: Notice (1024): Please change the value of 'Security.salt' in app/config/core.php to a salt value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 684]
+2011-03-25 15:31:40 Debug: Notice (1024): Please change the value of 'Security.cipherSeed' in app/config/core.php to a numeric (digits only) seed value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 688]
+2011-03-25 15:32:34 Debug: Notice (1024): Please change the value of 'Security.cipherSeed' in app/config/core.php to a numeric (digits only) seed value specific to your application in [F:\Zend\cakephp\cake\libs\debugger.php, line 688]
