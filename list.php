@@ -3,6 +3,7 @@ $mid = $_SESSION['login']['mid'];
 $menuArr = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : '';
 $list = explode(';', $menuArr);
 array_pop($list);
+$menus = '';
 
 foreach ($list as $row) {
 	$cache = explode(':', $row);
@@ -10,9 +11,6 @@ foreach ($list as $row) {
 	$menu['menu_count'] = $cache[1];
 	$menus[] = $menu;
 }
-unset($menu);
-//print_r($menus);
-//exit;
 
 $price = 0;
 $pedidos = array();
