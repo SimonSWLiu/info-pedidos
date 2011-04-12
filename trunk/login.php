@@ -3,13 +3,13 @@ define('APP_PATH', realpath(dirname(__FILE__)));
 include APP_PATH . '/config.php';
 include APP_PATH . '/db.php';
 
-if (isset($_SESSION['login'])) header('location: pedidos/pedidos.php'); // 已登录的跳转到pedidos.php页面
+if (isset($_SESSION['login'])) header('location: pedidos.php'); // 已登录的跳转到pedidos.php页面
 
 if ($_POST) {
 	$user = isset($_POST['user'])? $_POST['user']:'';
 	$pwd = isset($_POST['pwd'])? $_POST['pwd']:'';
 	if ($user == '' || $pwd == '') {
-		header('location: /pedidos/login.php?msg=用户名或密码不能为空');
+		header('location: login.php?msg=用户名或密码不能为空');
 		exit;
 	}
 	$md5_pwd = md5($pwd);
@@ -20,11 +20,11 @@ if ($_POST) {
 	if ($row) { // success
 		// 写入session
 		$_SESSION['login'] = array('mid'=>$row['mid'], 'email'=>$row['email'], 'name'=>$row['name'], 'status'=>$row['status'], 'level'=>$row['level']);
-		header('location: /pedidos/pedidos.php');
+		header('location: pedidos.php');
 		exit('login success');
 	} else {
 		$msg = '用户名或密码错误';
-		header('location: /pedidos/login.php?msg=' . $msg);
+		header('location: login.php?msg=' . $msg);
 	}
 }
 ?>
