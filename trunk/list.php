@@ -1,15 +1,14 @@
 <?php 
 $mid = $_SESSION['login']['mid'];
 $menuArr = isset($_COOKIE['pedidos'])? $_COOKIE['pedidos'] : '';
+
 $list = explode(';', $menuArr);
 array_pop($list);
 $menus = '';
 
 foreach ($list as $row) {
 	$cache = explode(':', $row);
-	$menu['menu_id'] = $cache[0];
-	$menu['menu_count'] = $cache[1];
-	$menus[] = $menu;
+	$menus[] = array('menu_id'=>$cache[0], 'menu_count'=>$cache[1]);
 }
 
 $price = 0;
@@ -55,7 +54,9 @@ if ($menus) {
 		</table>
 		<div>外卖费：<span></span></div>
 		<div>总价: <span id="total"><?php echo $price; ?></span> 余额：<span id="balance"><?php echo $balance; ?></span></div>
-		<input type="submit" value="确认" /><input type="button" value="清空" onclick="document.cookie = 'pedidos=\'\';expires=0'; parent.history.go(0);" />
+<!--		<input type="submit" value="确认" /><input type="button" value="清空" onclick="document.cookie = 'pedidos=\'\';expires=0'; parent.history.go(0);" />-->
+<!--		<script type="text/javascript" src="scripts/cookies.js"></script>-->
+		<input type="submit" value="确认" /><input type="button" value="清空" onclick="delCookie('pedidos'); parent.history.go(0);" />
 	</form>
 </div>
 <script type="text/javascript">

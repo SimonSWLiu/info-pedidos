@@ -31,5 +31,6 @@ $level = $_SESSION['login']['level'];
 <?php include 'main.php'; ?>
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
+<script type="text/javascript" src="scripts/cookies.js"></script>
 </body>
 </html>
