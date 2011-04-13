@@ -57,13 +57,15 @@ $totalPrice += $deliveryCharges;
 // 生成以菜名归类的表格
 $menuList = array();
 $count = array();
-$menuList[0]['r_name'] = $logArr[0]['r_name'];
-$menuList[0]['c_name'] = $logArr[0]['c_name'];
-$menuList[0]['dish_name'] = $logArr[0]['dish_name'];
-$menuList[0]['unit_price'] = $logArr[0]['unit_price'];
-$menuList[0]['dish_count'] = $logArr[0]['dish_count'];
-$menuList[0]['total_price'] = $logArr[0]['total_price'];
-$menuList[0]['menu_id'] = $logArr[0]['menu_id'];
+if ($logArr) {
+	$menuList[0]['r_name'] = $logArr[0]['r_name'];
+	$menuList[0]['c_name'] = $logArr[0]['c_name'];
+	$menuList[0]['dish_name'] = $logArr[0]['dish_name'];
+	$menuList[0]['unit_price'] = $logArr[0]['unit_price'];
+	$menuList[0]['dish_count'] = $logArr[0]['dish_count'];
+	$menuList[0]['total_price'] = $logArr[0]['total_price'];
+	$menuList[0]['menu_id'] = $logArr[0]['menu_id'];
+}
 for ($j = 1; $j < count($logArr); $j++) {
 	$row = $logArr[$j];
 	$menuId = $row['menu_id'];
