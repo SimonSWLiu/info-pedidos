@@ -24,7 +24,7 @@ while ($row = $result->fetch_assoc()) {
 			<th>姓名</th>
 			<th>电子邮箱</th>
 			<th>状态</th>
-			<th>等级</th>
+			<th>权限</th>
 			<th>余额</th>
 			<th>操作</th>
 		</tr>
@@ -33,9 +33,30 @@ while ($row = $result->fetch_assoc()) {
 			<td><?php echo $row['name']; ?></td>
 			<td><?php echo $row['email']; ?></td>
 			<td><?php echo $row['status']; ?></td>
-			<td><?php echo $row['level']; ?></td>
+			<td>
+			<?php
+				switch ($row['level']) {
+					case '4':
+						echo '注册用户';
+						break;
+					case '3':
+						echo '下单员';
+						break;
+					case '2':
+						echo '管理员';
+						break;
+					case '1':
+						echo '超级用户';
+						break;
+				}
+			?>
+			</td>
 			<td><?php echo $row['balance']; ?></td>
-			<td><a href="recharge.php?mid=<?php echo $row['mid']; ?>">充值</a> <a href="resetpwd.php?mid=<?php echo $row['mid']; ?>" onClick="if (!confirm('确定要重置密码?')) return false;">重置密码</a> <a href=".php?mid=<?php echo $row['mid']; ?>">冻结</a></td>
+			<td>
+				<a href="recharge.php?mid=<?php echo $row['mid']; ?>">充值</a>
+				<a href="resetpwd.php?mid=<?php echo $row['mid']; ?>" onClick="if (!confirm('确定要重置密码?')) return false;">重置密码</a>
+<!--				<a href=".php?mid=<?php echo $row['mid']; ?>">冻结</a>-->
+			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
