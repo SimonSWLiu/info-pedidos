@@ -34,15 +34,17 @@ if ($_POST) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>用户登录</title>
 <link type="text/css" rel="stylesheet" href="styles/global.css" />
-<script type="text/javascript" src="/scripts/jquery.js"></script>
-<script type="text/javascript" src="/scripts/global.js"></script>
+<script type="text/javascript" src="scripts/cookies.js"></script>
+<!--<script type="text/javascript" src="scripts/jquery.js"></script>-->
+<!--<script type="text/javascript" src="scripts/global.js"></script>-->
 </head>
 <body>
 <div class="login-win">
 	<span><?php echo isset($_GET['msg'])? $_GET['msg']:''; ?></span>
-	<form action="" method="post">
+	<form action="" method="post" onsubmit="return beforeSubmit()">
 		<label for="user">用户名或邮箱: </label><br /><input type="text" name="user" id="user" /><br />
-		<label for="user">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
+		<label for="pwd">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
+		<label for="remember_user"><input type="checkbox" name="remember_user" id="remember_user" checked="checked" value="1" />记住用户名</label><br />
 		<input type="submit" value="登 录" />
 		<a href="reg.php">注册</a>
 	</form>
@@ -51,6 +53,28 @@ if ($_POST) {
 window.onload = function() {
 	// 将焦点放在用户名input框上
 	document.getElementById('user').focus();
+
+	// 判断cookie中是否已存在用户名
+	var user = document.getElementById('user');
+	var pwd = document.getElementById('pwd');
+	user.value = getCookie('pedidos_user');
+	if(user.value != '') {
+		pwd.focus();
+	} else {
+		user.focus();
+	}
+}
+
+/**
+ * 登录表单提交前执行
+ */
+function beforeSubmit() {
+	// 判断是否需要记住用户名
+	var remember = document.getElementById('remember_user');
+	if (remember.checked == true && remember.value == 1) {
+		// 选中，写入cookie
+		setCookie('pedidos_user', document.getElementById('user').value);
+	}
 }
 </script>
 </body>

@@ -38,9 +38,8 @@ if ($_POST) {
 	foreach ( $menus as $row ) {
 		$pedidos .= $row ['menu_id'] . ':' . $row ['menu_count'] . ';';
 	}
-	
-	setcookie ( 'pedidos', $pedidos, time () + 41400, '/' );
-	exit ( '<script>parent.location.href=" pedidos.php"</script>' );
+	setcookie ( 'pedidos', $pedidos, time () + 41400 );
+	exit ( '<script>parent.location.href="pedidos.php"</script>' );
 	
 	
 	
