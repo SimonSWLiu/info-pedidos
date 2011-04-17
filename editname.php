@@ -36,7 +36,7 @@ if ($_POST) {
 <body>
 	<div><?php echo isset($_GET['msg'])? $_GET['msg'] : ''; ?></div>
 	<form action="" method="post">
-		<input type="text" name="name" value="<?php echo $_SESSION['login']['name']; ?>" />
+		输入姓名：<input type="text" name="name" value="<?php echo $_SESSION['login']['name']; ?>" />
 		<input type="submit" value="保存" />
 	</form>
 </body>

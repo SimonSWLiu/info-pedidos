@@ -51,18 +51,13 @@ if ($_POST) {
 </div>
 <script type="text/javascript">
 window.onload = function() {
-	// 将焦点放在用户名input框上
-	document.getElementById('user').focus();
-
-	// 判断cookie中是否已存在用户名
 	var user = document.getElementById('user');
 	var pwd = document.getElementById('pwd');
+	
+	// 判断cookie中是否已存在用户名
 	user.value = getCookie('pedidos_user');
-	if(user.value != '') {
-		pwd.focus();
-	} else {
-		user.focus();
-	}
+	if(user.value != '') pwd.focus();
+	else user.focus();
 }
 
 /**
@@ -74,6 +69,9 @@ function beforeSubmit() {
 	if (remember.checked == true && remember.value == 1) {
 		// 选中，写入cookie
 		setCookie('pedidos_user', document.getElementById('user').value);
+	} else {
+		// 没有选中，则不记录用户名，且删除原来的用户名
+		delCookie('pedidos_user');
 	}
 }
 </script>

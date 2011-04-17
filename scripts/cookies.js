@@ -19,6 +19,5 @@ function delCookie(name) { // 删除cookie
 	var exp = new Date();
 	exp.setTime(exp.getTime() - 1);
 	var cval = getCookie(name);
-//	if (cval != null) document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString();
-	if (cval != null) document.cookie = name + '=' + cval + ';expires=0';
+	if (cval != null) document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString();
 }

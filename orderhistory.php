@@ -18,7 +18,7 @@ mysqli_close($db);
 </head>
 
 <body>
-<table>
+<table border="1">
 	<tr>
 		<th>时间</th>
 		<th>餐厅</th>
