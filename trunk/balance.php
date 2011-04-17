@@ -14,6 +14,6 @@ $myBalance = $row['balance'];
 </head>
 
 <body>
-<div>我的余额：<span><?php echo $myBalance; ?></span></div>
+<div>我的余额：<span style="background-color: #FF0;">￥<?php echo number_format($myBalance, 2, '.', ','); ?></span></div>
 </body>
 </html>

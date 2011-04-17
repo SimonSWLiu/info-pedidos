@@ -6,6 +6,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login']['level'] == 3) {
 	exit('没有权限');
 }
 
+// 列出所有餐厅（筛选项）
 $sql = "SELECT * FROM restaurant";
 $result = mysqli_query($db, $sql);
 $restaurant = array();
@@ -17,6 +18,7 @@ $dateArr = getdate();
 $todayYear = $dateArr['year'];
 $todayMonth = $dateArr['mon'];
 $todayDay = $dateArr['mday'];
+
 // 获取今日的餐单
 $sql = "SELECT pedidos_log.*,members.name
 				FROM pedidos_log,members
@@ -44,15 +46,15 @@ while($row = $result->fetch_assoc()) {
 }
 mysqli_free_result($result);
 
-$result = mysqli_query($db, $sql2);
-$deliveryCharges = 0;
-while($row = mysqli_fetch_assoc($result)) {
-	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='{$row['rid']}'";
-	$result2 = mysqli_query($db, $sql);
-	$row2 = mysqli_fetch_assoc($result2);
-	$deliveryCharges += $row2['delivery_charges'];
-}
-$totalPrice += $deliveryCharges;
+//$result = mysqli_query($db, $sql2); // 找出点了餐的餐厅（不重复）
+//$deliveryCharges = 0;
+//while($row = mysqli_fetch_assoc($result)) {
+//	$sql = "SELECT delivery_charges FROM restaurant WHERE rid='{$row['rid']}'";
+//	$result2 = mysqli_query($db, $sql);
+//	$row2 = mysqli_fetch_assoc($result2);
+//	$deliveryCharges += $row2['delivery_charges'];
+//}
+//$totalPrice += $deliveryCharges;
 
 // 生成以菜名归类的表格
 $menuList = array();
@@ -84,45 +86,11 @@ for ($j = 1; $j < count($logArr); $j++) {
 }
 asort($menuList);
 
-// 找出不重复的今天下订单的会员id
-//$sql = "SELECT DISTINCT mid FROM pedidos_log
-//				WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND (hour<11 OR (hour=11 AND minute<30))";
-//$result = mysqli_query($db, $sql);
-//$ratio_arr = array();
-//while ($row = mysqli_fetch_assoc($result)) {
-//	$sql1 = "SELECT delivery_ratio FROM members WHERE mid='{$row['mid']}'";
-//	$result1 = mysqli_query($db, $sql1);
-//	$ratio = mysqli_fetch_assoc($result1);
-////	$ratio_arr[$row['mid']] = $ratio['delivery_ratio'];
-//	$ratio_arr[] = array('mid'=>$row['mid'], 'ratio'=>$ratio['delivery_ratio']);
-//}
-// 找出ratio最少的家伙，他负责付这次的外卖费
-//for ($i = 0; $i < count($ratio_arr) - 1; $i++) {
-//	for ($j = 1; $j < count($ratio_arr); $j++) {
-//		if ($ratio_arr[$i]['ratio'] > $ratio_arr[$j]['ratio']) {
-//			$max = $ratio_arr[$i]['mid'];
-//		} else {
-//			$max = $ratio_arr[$j]['mid'];
-//		}
-//	}
-//}
-//$update = "UPDATE members SET balance=balance-1 WHERE mid='$max'"; // 扣除外卖费
-//$result3 = mysqli_query($db, $update);
-//$affected_rows = mysqli_affected_rows($db);
-//if ($affected_rows == 1) {
-//	// 扣除外卖费成功
-//	// 写入日志
-//	$mid = $_SESSION['login']['mid'];
-//	$edit_time = time();
-//	
-//	$insert = "INSERT INTO pedidos_log(`mid`,`edit_time`,`year`,`month`,`day`,`hour`,`minute`,`rid`,`r_name`,`cid`,`c_name`,`menu_id`,`dish_name`,`unit_price`,`dish_count`,`total_price`,`note`,`status`,`type_tag`)
-//						 VALUES('{$_SESSION['login']}','')";
-//}
+// 找出负责本次外卖费的用户
 
-$totalPrice = 0;
-foreach($menuList as $row){
-	$totalPrice += $row['total_price'];
-}
+
+// 本次外卖费
+
 
 mysqli_close($db);
 ?>
@@ -144,7 +112,7 @@ mysqli_close($db);
 	</ul>
 	<table style="text-align: left; clear: both;" border="1">
 		<tr>
-			<th><label><input type="checkbox" name="allLogs" onClick="selectAll(this)" />全选</label></th>
+<!--			<th><label><input type="checkbox" name="allLogs" onClick="selectAll(this)" />全选</label></th>-->
 			<th>点餐人</th>
 			<th>餐厅</th>
 			<th>类别</th>
@@ -157,7 +125,7 @@ mysqli_close($db);
 		</tr>
 		<?php foreach ($logArr as $row): ?>
 		<tr>
-			<td><input type="checkbox" name="selectLog" value="<?php echo $row['log_id']; ?>" /></td>
+<!--			<td><input type="checkbox" name="selectLog" value="<?php echo $row['log_id']; ?>" /></td>-->
 			<td><?php echo $row['name']; ?></td>
 			<td><?php echo $row['r_name']; ?></td>
 			<td><?php echo $row['c_name']; ?></td>
@@ -187,13 +155,18 @@ mysqli_close($db);
 		<tr>
 			<td>总数量：</td>
 			<td><?php echo $totalCount; ?></td>
-			<td>外卖费：</td>
+			<!--<td>外卖费：</td>
 			<td><?php echo $deliveryCharges; ?></td>
-			<td>总价：</td>
+			--><td>总价：</td>
 			<td colspan="3">￥<?php echo number_format($totalPrice, 2, '.', ','); ?></td>
 		</tr>
 	</table>
-	<input type="button" value="通过" onClick="selectLogs();" />
+	<div>
+		<span>benson</span>
+		外卖费: <input type="text" name="" value="$10.00" />
+		<input type="button" name="" value="确定" />
+	</div>
+<!--	<input type="button" value="通过" onClick="selectLogs();" />-->
 	<div class="menu-list">
 		<table style="text-align: left; clear: both;" border="1">
 			<tr>
@@ -223,41 +196,34 @@ mysqli_close($db);
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/global.js"></script>
 <script type="text/javascript">
-function selectAll(_this) {
-	var all = _this.checked;
-	var logs = document.getElementsByName('selectLog');
-	for (var i = 0; i < logs.length; i++) {
-		if (all == true) {
-			logs[i].checked = true;
-		} else {
-			logs[i].checked = false;
-		}
-	}
-}
-
-function selectLogs() {
-	var logs = document.getElementsByName('selectLog');
-	var logsStr = '';
-	var tag = 0;
-	for (var i = 0; i < logs.length; i++) {
-		if (logs[i].checked == true) {
-			logsStr += logs[i].value + ';';
-			tag = 1;
-		}
-	}
-	if (tag == 0) { // 一个都没有勾选
-		alert('没有勾选任何菜单.');
-		return false;
-	}
-	window.location.href="allmenuspass.php?logs=" + logsStr;
-//	$.get('/allmenuspass.php', {
-//		logs: logsStr
-//	}, function(data) {
-//		if (data == '1') {
-//			window.location.href = 'pmanage.php';
+//function selectAll(_this) {
+//	var all = _this.checked;
+//	var logs = document.getElementsByName('selectLog');
+//	for (var i = 0; i < logs.length; i++) {
+//		if (all == true) {
+//			logs[i].checked = true;
+//		} else {
+//			logs[i].checked = false;
 //		}
-//	});
-}
+//	}
+//}
+//
+//function selectLogs() {
+//	var logs = document.getElementsByName('selectLog');
+//	var logsStr = '';
+//	var tag = 0;
+//	for (var i = 0; i < logs.length; i++) {
+//		if (logs[i].checked == true) {
+//			logsStr += logs[i].value + ';';
+//			tag = 1;
+//		}
+//	}
+//	if (tag == 0) { // 一个都没有勾选
+//		alert('没有勾选任何菜单.');
+//		return false;
+//	}
+//	window.location.href="allmenuspass.php?logs=" + logsStr;
+//}
 </script>
 </body>
 </html>
