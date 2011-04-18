@@ -87,9 +87,23 @@ for ($j = 1; $j < count($logArr); $j++) {
 asort($menuList);
 
 // 找出负责本次外卖费的用户
+$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
+$result = mysqli_query($db, $sql);
+$midStr = '';
+while ($row = mysqli_fetch_assoc($result)) {
+	$midStr .= $row['mid'] . ',';
+}
+$strBuf = '';
+for ($i = 0; $i < strlen($midStr) - 1; $i++) {
+	$strBuf .= $midStr[$i];
+}
 
+$sql = "SELECT * FROM members WHERE mid IN($strBuf) ORDER BY delivery_count DESC";
+$result = mysqli_query($db, $sql);
+$row = mysqli_fetch_assoc($result);
+$deliveryUser = $row['name'];
+$deliveryId = $row['mid'];
 
-// 本次外卖费
 
 
 mysqli_close($db);
@@ -120,7 +134,7 @@ mysqli_close($db);
 			<th>单价</th>
 			<th>数量</th>
 			<th>总价</th>
-			<th>状态</th>
+<!--			<th>状态</th>-->
 			<th>操作</th>
 		</tr>
 		<?php foreach ($logArr as $row): ?>
@@ -133,7 +147,7 @@ mysqli_close($db);
 			<td><?php echo $row['unit_price']; ?></td>
 			<td><?php echo $row['dish_count']; ?></td>
 			<td><?php echo $row['total_price']; ?></td>
-			<td>
+			<!--<td>
 			<?php
 				switch ($row['status']) {
 					case '0':
@@ -147,8 +161,7 @@ mysqli_close($db);
 						break;
 				} 
 			?>
-			</td>
-			
+			</td>-->
 			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="delorder.php?lid=<?php echo $row['log_id']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>
@@ -162,9 +175,12 @@ mysqli_close($db);
 		</tr>
 	</table>
 	<div>
-		<span>benson</span>
-		外卖费: <input type="text" name="" value="$10.00" />
-		<input type="button" name="" value="确定" />
+		<form action="delivery.php" method="post">
+			<span style="background-color: #FF0;"><?php echo $deliveryUser; ?></span>
+			<input type="hidden" name="delivery_user_id" value="<?php echo $deliveryId; ?>" />
+			外卖费: <input type="text" name="delivery_charge" value="1" />
+			<input type="submit" name="" value="确定" />
+		</form>
 	</div>
 <!--	<input type="button" value="通过" onClick="selectLogs();" />-->
 	<div class="menu-list">
