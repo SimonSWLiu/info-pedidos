@@ -12,14 +12,28 @@ if ($_GET) {
 	$totalPrice = floatval($_POST['total_price']);
 	$note = strip_tags(trim($_POST['note']));
 	$lid = intval(trim($_POST['lid']));
+	$sql = "SELECT * FROM pedidos_log WHERE log_id='$lid'";
+	$result = mysqli_query($db, $sql);
+	$row = mysqli_fetch_assoc($result); // 原总价
+	$total_price = $row['total_price'];
+	$mid = $row['mid'];
+	
+	$different = $totalPrice - $total_price; // 总价修改前后差
+	
 	$sql = "UPDATE pedidos_log
 					SET `unit_price`='$unitPrice',`dish_count`='$dishCount',`total_price`='$totalPrice',`note`='$note'
 					WHERE log_id='$lid'";
 	mysqli_query($db, $sql);
 	$affectedRow = mysqli_affected_rows($db);
 	if ($affectedRow == 1) {
-		header('location: pmanage.php');
-		exit; 
+		// 更新日志成功，修改用户的余额
+		$update = "UPDATE members SET balance=balance-'$different' WHERE mid='$mid'";
+		mysqli_query($db, $update);
+		$affectedRows = mysqli_affected_rows($db);
+		if ($affectedRows == 1) {
+			header('location: pmanage.php');
+			exit;
+		}
 	} else {
 		exit('操作失败');
 	}
