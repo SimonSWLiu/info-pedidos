@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_POST) {
 	$mName = $_POST['mName'];
 	$mPrice = $_POST['mPrice'];

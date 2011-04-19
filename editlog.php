@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_GET) {
 	$lid = trim($_GET['lid']);
 	$lid = intval($lid);

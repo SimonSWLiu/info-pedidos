@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_POST) {
 	$cName = $_POST['category'];
 	$cid = $_POST['cid'];

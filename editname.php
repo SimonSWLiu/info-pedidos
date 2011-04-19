@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(4);
 if (!isset($_SESSION['login'])) {
 	exit('Please login first.');
 }

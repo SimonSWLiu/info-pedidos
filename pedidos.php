@@ -4,6 +4,7 @@ include 'db.php';
 
 if (!isset($_SESSION['login'])) {
 	header('location: /pedidos/login.php');
+	exit;
 }
 if ($_POST) {
 	$menuArr = $_POST['menu'];

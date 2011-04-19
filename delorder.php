@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 $log_id = $_GET['lid'];
 $sql = "SELECT * FROM pedidos_log WHERE log_id='$log_id'";
 $result = $db->query($sql);
