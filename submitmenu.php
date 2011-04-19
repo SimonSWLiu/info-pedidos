@@ -38,7 +38,7 @@ if ($_POST) {
 			}
 		}
 	}
-	setcookie('pedidos','',0,'/'); // 清空cookie
+	setcookie('pedidos','',0); // 清空cookie
 	header('location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

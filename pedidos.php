@@ -6,17 +6,17 @@ if (!isset($_SESSION['login'])) {
 	header('location: /pedidos/login.php');
 	exit;
 }
-if ($_POST) {
-	$menuArr = $_POST['menu'];
-	foreach ($menuArr as $row) {
-		$logArr = explode(':', $row);
-		$menu_id = $logArr[0];
-		$count = $logArr[1];
-		$sql = "INSERT INTO pedidos_log(mid,edit_time,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
-						VALUES()";
-		$result = $db->query($sql);
-	}
-}
+//if ($_POST) {
+//	$menuArr = $_POST['menu'];
+//	foreach ($menuArr as $row) {
+//		$logArr = explode(':', $row);
+//		$menu_id = $logArr[0];
+//		$count = $logArr[1];
+//		$sql = "INSERT INTO pedidos_log(mid,edit_time,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status)
+//						VALUES()";
+//		$result = $db->query($sql);
+//	}
+//}
 $level = $_SESSION['login']['level'];
 ?>
 <!DOCTYPE html>
