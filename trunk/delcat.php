@@ -1,6 +1,7 @@
 <?php 
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_GET) {
 	$cid = $_GET['cid'];
 	$sql = "DELETE FROM category WHERE cid='$cid'";

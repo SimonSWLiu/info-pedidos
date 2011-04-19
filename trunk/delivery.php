@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 
 if ($_POST) {
 	if ($_POST['delivery_charge'] == '' || $_POST['delivery_user_id'] == '') {
@@ -11,9 +12,23 @@ if ($_POST) {
 	$todayYear = $dateArr['year'];
 	$todayMonth = $dateArr['mon'];
 	$todayDay = $dateArr['mday'];
+	$operator = $_SESSION['login']['mid'];
 	
 	$updatePedidos = "UPDATE pedidos_log SET status='1' WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
 	mysqli_query($db, $updatePedidos);
+	
+	// 操作写入log表
+	$sql = "SELECT * FROM pedidos_log WHERE status='1' AND year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
+	$result = mysqli_query($db, $sql);
+	while ($row = mysqli_fetch_assoc($result)) {
+		$mid = $row['mid'];
+		$operate = '支出';
+		$money = $row['total_price'];
+		$editTime = time();
+		$note = '点餐';
+		$insertLog = "INSERT INTO log(mid,money,operate,edit_time,operator_id,note) VALUES('$mid','$money','$operate','$editTime',$operator,'$note')";
+		mysqli_query($db, $insertLog);
+	}
 	
 	$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
 	$result = mysqli_query($db, $sql);
@@ -32,15 +47,18 @@ if ($_POST) {
 	if ($affected_rows == 1) {
 		$sql = "UPDATE members SET delivery_ratio=delivery_count/ordering_count WHERE mid='$deliveryUserId'";
 		mysqli_query($db, $sql);
-		$affected_rows2 = mysqli_affected_rows($db);
-		if ($affected_rows2 == 1) {
-			// 写入日志
-			$time = time();
-			$sql = "INSERT INTO pedidos_log(mid,edit_time,year,month,day,hour,minute,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status,type_tag)
-							VALUES('$deliveryUserId','$time','$todayYear','$todayMonth','$todayDay','{$dateArr['hours']}','{$dateArr['minutes']}',0,'',0,'',0,'',0,0,'$deliveryCharge','外卖费',1,1)";
-			mysqli_query($db, $sql);
-//			$insert_row = mysqli_affected_rows($db);
-		}
+		
+		// 写入日志
+		$time = time();
+		$sql = "INSERT INTO pedidos_log(mid,edit_time,year,month,day,hour,minute,rid,r_name,cid,c_name,menu_id,dish_name,unit_price,dish_count,total_price,note,status,type_tag)
+						VALUES('$deliveryUserId','$time','$todayYear','$todayMonth','$todayDay','{$dateArr['hours']}','{$dateArr['minutes']}',0,'',0,'',0,'',0,0,'$deliveryCharge','外卖费',1,1)";
+		mysqli_query($db, $sql);
+
+		// 写入log表
+		$operate = '支出';
+		$note = '外卖费';
+		$sql = "INSERT INTO log(mid,money,operate,edit_time,operator_id,note) VALUES('$deliveryUserId','$deliveryCharge','$operate','$time',$operator,'$note')";
+		mysqli_query($db, $sql);
 	}
 	header('location: pmanage.php');
 }

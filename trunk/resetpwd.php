@@ -1,6 +1,9 @@
 <?php
 include 'config.php';
 include 'db.php';
+
+permission(2);
+
 $pwd = md5('123456');
 $sql = "UPDATE members SET pwd='$pwd' WHERE mid='{$_GET['mid']}'";
 $result = $db->query($sql);

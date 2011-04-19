@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 if (!isset($_SESSION['login']) || $_SESSION['login']['level'] == 3) {
 	exit('没有权限');
 }

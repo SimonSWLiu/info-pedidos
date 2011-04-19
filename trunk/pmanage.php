@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 
 if (!isset($_SESSION['login']) || $_SESSION['login']['level'] == 3) {
 	exit('没有权限');
@@ -134,7 +135,7 @@ mysqli_close($db);
 			<th>单价</th>
 			<th>数量</th>
 			<th>总价</th>
-<!--			<th>状态</th>-->
+			<th>状态</th>
 			<th>操作</th>
 		</tr>
 		<?php foreach ($logArr as $row): ?>
@@ -147,21 +148,21 @@ mysqli_close($db);
 			<td><?php echo $row['unit_price']; ?></td>
 			<td><?php echo $row['dish_count']; ?></td>
 			<td><?php echo $row['total_price']; ?></td>
-			<!--<td>
+			<td>
 			<?php
 				switch ($row['status']) {
 					case '0':
-						echo '未审核';
+						echo '未订餐';
 						break;
 					case '1':
-						echo '通过';
+						echo '订餐成功';
 						break;
 					case '2':
-						echo '不通过';
+						echo '订餐失败';
 						break;
 				} 
 			?>
-			</td>-->
+			</td>
 			<td><a href="editlog.php?lid=<?php echo $row['log_id']; ?>">修改</a> <a href="delorder.php?lid=<?php echo $row['log_id']; ?>">删除</a></td>
 		</tr>
 		<?php endforeach; ?>

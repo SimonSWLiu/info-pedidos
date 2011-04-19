@@ -15,6 +15,7 @@
 		<li><a href="pmanage.php" target="main_frame">点餐管理</a></li>
 		<li><a href="menumanage.php" target="main_frame">菜单管理</a></li>
 		<li><a href="members.php" target="main_frame">会员管理</a></li>
+		<li><a href="detail.php" target="main_frame">交易明细</a></li>
 		<?php endif; ?>
 	</ul>
 	<?php include 'list.php'; ?>

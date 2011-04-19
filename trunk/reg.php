@@ -30,9 +30,9 @@ if ($_POST) {
 		header('location: reg.php?msg=帐号已存在');
 		exit;
 	}
-	$sql = "INSERT INTO members(email,name,pwd) VALUES('$email','$name','" . md5($pwd) . "')";
+	$sql = "INSERT INTO members(email,name,pwd,status) VALUES('$email','$name','" . md5($pwd) . "','1')";
 	$result = $db->query($sql);
-	if ($result) exit('success<br /><a href="/">login.</a>');
+	if ($result) exit('success<br /><a href="login.php">login.</a>');
 	else exit('注册失败');
 	header('location: login.php');
 }

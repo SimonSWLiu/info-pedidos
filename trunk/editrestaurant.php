@@ -2,10 +2,12 @@
 // 编辑餐馆信息
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_POST) {
 	$rName = $_POST['rName'];
 	$rId = $_POST['rId'];
-	$sql = "UPDATE restaurant SET r_name='$rName' WHERE rid='$rId'";
+	$delivery = floatval($_POST['delivery']);
+	$sql = "UPDATE restaurant SET r_name='$rName',delivery_charges='$delivery' WHERE rid='$rId'";
 	$db->query($sql);
 }
 $rid = $_GET['rid'];
@@ -30,8 +32,9 @@ mysqli_close($db);
 <div>
 	<form action="" method="post" name="editrName">
 		<input type="hidden" name="rId" value="<?php echo $r_arr['rid']; ?>" />
-		<label for="rName">餐馆：</label><input type="text" name="rName" value="<?php echo $r_arr['r_name']; ?>" />
-		<input type="submit" value="Submit" />
+		<label for="rName">餐馆：</label><input type="text" name="rName" value="<?php echo $r_arr['r_name']; ?>" /><br />
+		外卖费: <input type="text" name="delivery" value="<?php echo $r_arr['delivery_charges']; ?>" /><br />
+		<input type="submit" value="保存" />
 	</form>
 </div>
 <div id="category">
