@@ -29,6 +29,7 @@ while ($row = mysqli_fetch_assoc($result)) $menuArr[] = $row;
 			<th>数量</th>
 			<th>总价</th>
 			<th>状态</th>
+			<th>操作</th>
 		</tr>
 		<tr>
 		<?php foreach ($menuArr as $row): ?>
@@ -39,7 +40,17 @@ while ($row = mysqli_fetch_assoc($result)) $menuArr[] = $row;
 			<td><?php echo $row['unit_price']; ?></td>
 			<td><?php echo $row['dish_count']; ?></td>
 			<td><?php echo $row['total_price']; ?></td>
-			<td><?php echo $row['status']; ?></td>
+			<td>
+			<?php switch ($row['status']) {
+				case '0':
+					echo '未下单';
+					break;
+				case '1':
+					echo '下单成功';
+					break;
+			}?>
+			</td>
+			<td><a href="javascript:alert('功能完善中.')">取消</a></td>
 		<?php endforeach; ?>
 		</tr>
 	</table>
