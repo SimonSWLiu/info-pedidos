@@ -99,12 +99,15 @@ for ($i = 0; $i < strlen($midStr) - 1; $i++) {
 	$strBuf .= $midStr[$i];
 }
 
+$deliveryUser = '';
+$deliveryId = '';
 $sql = "SELECT * FROM members WHERE mid IN($strBuf) ORDER BY delivery_ratio";
 $result = mysqli_query($db, $sql);
-$row = mysqli_fetch_assoc($result);
-$deliveryUser = $row['name'];
-$deliveryId = $row['mid'];
-
+if ($result) {
+	$row = mysqli_fetch_assoc($result);
+	$deliveryUser = $row['name'];
+	$deliveryId = $row['mid'];
+}
 
 
 mysqli_close($db);
