@@ -9,7 +9,7 @@ $log = $result->fetch_assoc();
 $mid = $log['mid'];
 $total_price = $log['total_price'];
 $result->free();
-$update = "UPDATE members SET balance=balance+'$total_price' WHERE mid='$mid'";
+$update = "UPDATE members SET balance=balance+'$total_price',ordering_count=ordering_count-1,delivery_ratio=delivery_count/ordering_count WHERE mid='$mid'";
 $row_affected = $db->query($update);
 if ($row_affected == 1) {
 	// 更新成功
