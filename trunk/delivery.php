@@ -7,7 +7,7 @@ if ($_POST) {
 	if ($_POST['delivery_charge'] == '' || $_POST['delivery_user_id'] == '') {
 		exit('参数错误');
 	}
-	// 今日点外卖的用户全部ordering_count 都加一
+	// 更新菜单状态
 	$dateArr = getdate();
 	$todayYear = $dateArr['year'];
 	$todayMonth = $dateArr['mon'];
@@ -29,14 +29,14 @@ if ($_POST) {
 		$insertLog = "INSERT INTO log(mid,money,operate,edit_time,operator_id,note) VALUES('$mid','$money','$operate','$editTime',$operator,'$note')";
 		mysqli_query($db, $insertLog);
 	}
-	
-	$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
-	$result = mysqli_query($db, $sql);
-	while ($row = mysqli_fetch_assoc($result)) {
-		$mid = addslashes($row['mid']);
-		$update = "UPDATE members SET ordering_count=ordering_count+1 WHERE mid='$mid'";
-		mysqli_query($db, $update);
-	}
+// 今日点外卖的用户全部ordering_count 都加一
+//	$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
+//	$result = mysqli_query($db, $sql);
+//	while ($row = mysqli_fetch_assoc($result)) {
+//		$mid = addslashes($row['mid']);
+//		$update = "UPDATE members SET ordering_count=ordering_count+1 WHERE mid='$mid'";
+//		mysqli_query($db, $update);
+//	}
 	
 	$deliveryCharge = floatval($_POST['delivery_charge']);
 	$deliveryUserId = intval($_POST['delivery_user_id']);

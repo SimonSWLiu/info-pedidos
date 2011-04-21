@@ -32,9 +32,11 @@ if ($_POST) {
 			$affected_row = mysqli_affected_rows($db);
 			if ($affected_row == 1) {
 				$totalPrice = $menuCount * $menuRow['m_price'];
-				$sql = "UPDATE members SET balance=balance-$totalPrice WHERE mid='$mid'";
+				$sql = "UPDATE members SET balance=balance-$totalPrice,ordering_count=ordering_count+1,delivery_ratio=delivery_count/ordering_count WHERE mid='$mid'";
 				mysqli_query($db, $sql);
 				$affected_num = mysqli_affected_rows($db);
+				$update = "UPDATE members SET delivery_ratio=delivery_count/ordering_count WHERE mid='$mid'";
+				mysqli_query($db, $update);
 			}
 		}
 	}

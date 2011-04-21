@@ -31,8 +31,8 @@ while ($row = mysqli_fetch_assoc($result)) $menuArr[] = $row;
 			<th>状态</th>
 			<th>操作</th>
 		</tr>
-		<tr>
 		<?php foreach ($menuArr as $row): ?>
+		<tr>
 			<td><?php echo $row['r_name']; ?></td>
 			<td><?php echo $row['c_name']; ?></td>
 			<td><?php echo $row['dish_name']; ?></td>
@@ -50,9 +50,13 @@ while ($row = mysqli_fetch_assoc($result)) $menuArr[] = $row;
 					break;
 			}?>
 			</td>
-			<td><a href="javascript:alert('功能完善中.')">取消</a></td>
-		<?php endforeach; ?>
+			<td>
+			<?php if ($row['status'] == 0): ?>
+				<a href="cancelorder.php?pid=<?php echo $row['log_id']; ?>">取消</a>
+			<?php endif; ?>
+			</td>
 		</tr>
+		<?php endforeach; ?>
 	</table>
 </body>
 </html>

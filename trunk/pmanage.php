@@ -88,7 +88,7 @@ for ($j = 1; $j < count($logArr); $j++) {
 asort($menuList);
 
 // 找出负责本次外卖费的用户
-$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay'";
+$sql = "SELECT DISTINCT(mid) FROM pedidos_log WHERE year='$todayYear' AND month='$todayMonth' AND day='$todayDay' AND rid='1'";
 $result = mysqli_query($db, $sql);
 $midStr = '';
 while ($row = mysqli_fetch_assoc($result)) {
@@ -99,7 +99,7 @@ for ($i = 0; $i < strlen($midStr) - 1; $i++) {
 	$strBuf .= $midStr[$i];
 }
 
-$sql = "SELECT * FROM members WHERE mid IN($strBuf) ORDER BY delivery_count DESC";
+$sql = "SELECT * FROM members WHERE mid IN($strBuf) ORDER BY delivery_ratio";
 $result = mysqli_query($db, $sql);
 $row = mysqli_fetch_assoc($result);
 $deliveryUser = $row['name'];
