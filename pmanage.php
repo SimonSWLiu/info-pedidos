@@ -179,7 +179,7 @@ mysqli_close($db);
 		</tr>
 	</table>
 	<div>
-		<form action="delivery.php" method="post">
+		<form action="delivery.php" method="post" onsubmit="if(!confirm('确定提交?')) return false;">
 			<span style="background-color: #FF0;"><?php echo $deliveryUser; ?></span>
 			<input type="hidden" name="delivery_user_id" value="<?php echo $deliveryId; ?>" />
 			外卖费: <input type="text" name="delivery_charge" value="1" />
