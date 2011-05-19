@@ -109,6 +109,13 @@ $result2 = mysqli_query ( $db, $sql2 );
 while ( $row = mysqli_fetch_assoc ( $result2 ) ) {
 	$menus [$row ['menu_id']] = array ('m_name' => $row ['m_name'], 'm_price' => $row ['m_price'], 'm_note' => $row ['m_note'], 'cat_id' => $row ['cat_id'], 'restaurant_id' => $row ['restaurant_id'] );
 }
+
+$sql = 'SELECT * FROM notice WHERE notice_status=1 ORDER BY notice_date DESC LIMIT 0,1';
+$result = mysqli_query($db, $sql);
+if ($result) {
+	$notice_arr = mysqli_fetch_assoc($result);
+	$notice_content = $notice_arr['notice_content'];
+}
 ?>
 <!DOCTYPE html>
 <head>
@@ -117,7 +124,7 @@ while ( $row = mysqli_fetch_assoc ( $result2 ) ) {
 <link type="text/css" rel="stylesheet" href="styles/global.css" />
 </head>
 <body>
-	<div class="notice">测试公告</div>
+	<?php if ($notice_content) echo '<div class="notice">'.nl2br($notice_content).'</div>'; ?>
 	<div>
 	<table border="1" style="border-collapse: collapse; width: 700px; border-color: #D2E8FF;">
 		<?php foreach ( $rest as $key => $row ) : ?>

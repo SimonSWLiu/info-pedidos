@@ -13,6 +13,7 @@
 		</li>
 		<li><a href="today.php" target="main_frame">今日点餐</a></li>
 		<?php if ($level < 3): ?>
+		<li><a href="notice.php" target="main_frame">公告</a></li>
 		<li><a href="pmanage.php" target="main_frame">点餐管理</a></li>
 		<li><a href="menumanage.php" target="main_frame">菜单管理</a></li>
 		<li><a href="members.php" target="main_frame">会员管理</a></li>
