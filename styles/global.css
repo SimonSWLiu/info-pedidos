@@ -29,3 +29,6 @@ body { overflow: scroll; }
 
 .menu-list { padding-top: 20px; }
 .t-title { background-color: #F3F4F6; }
+
+/* menu.php 点餐页面 */
+.notice { display: block; width: 100%; height: 200px; background-color: #F00; }
