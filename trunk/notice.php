@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'db.php';
+permission(2);
 if ($_POST) {
 	$content = isset($_POST['notice_content'])? $_POST['notice_content'] : '';
 	if (!$content) exit('内容不完整');
