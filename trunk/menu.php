@@ -112,10 +112,8 @@ while ( $row = mysqli_fetch_assoc ( $result2 ) ) {
 
 $sql = 'SELECT * FROM notice WHERE notice_status=1 ORDER BY notice_date DESC LIMIT 0,1';
 $result = mysqli_query($db, $sql);
-if ($result) {
-	$notice_arr = mysqli_fetch_assoc($result);
-	$notice_content = $notice_arr['notice_content'];
-}
+$notice_arr = mysqli_fetch_assoc($result);
+$notice_content = $notice_arr['notice_content'];
 ?>
 <!DOCTYPE html>
 <head>
