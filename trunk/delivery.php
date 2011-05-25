@@ -4,7 +4,7 @@ include 'db.php';
 permission(2);
 
 if ($_POST) {
-	if ($_POST['delivery_charge'] == '' || $_POST['delivery_user_id'] == '') {
+	if ($_POST['delivery_charge'] == '') {
 		exit('参数错误');
 	}
 	// 更新菜单状态
