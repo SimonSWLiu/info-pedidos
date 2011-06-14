@@ -23,6 +23,7 @@ if ($menus) {
 		$result = $db->query($sql);
 		$menu = $result->fetch_assoc();
 //		$menuArr = explode(':', $row);
+		$pArr['menu_id'] = $menu['menu_id'];
 		$pArr['name'] = $menu['m_name'];
 		$pArr['price'] = $menu['m_price'];
 		$pArr['count'] = $row['menu_count'];
@@ -43,7 +44,7 @@ if ($menus) {
 		<?php 
 		if ($list):
 			foreach ($pedidos as $row): ?>
-			<input type="hidden" name="menu" value="<?php echo $row['menu_id'] . ':' . $count[$row['menu_id']]; ?>" />
+			<input type="hidden" name="menu" value="<?php echo $row['menu_id'] . ':' . $row['count']; ?>" />
 			<tr>
 				<td><?php echo $row['name']; ?></td>
 				<td><?php echo $row['count']; ?></td>
