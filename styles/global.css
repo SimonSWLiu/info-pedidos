@@ -1,7 +1,15 @@
 @charset "utf-8";
 /* CSS Document */
 /** {margin: 0; padding: 0; font: 16px/16px Arial, Helvetica, sans-serif; }*/
-* {margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif; }
+* {margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif; font-size: 13px; }
+
+/* clearfix */
+.clearfix:after { content: "."; display: block; height: 0; clear:both; visibility: hidden; }
+/* Hides from IE-mac */
+html .clearfix { height: 1%; }
+/* End hide from IE-mac */
+
+
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -22,8 +30,14 @@ li { line-height: 18px; list-style: none outside none; padding: 2px 5px; }
 
 body { overflow: scroll; }
 .reg-input {width: 3000px;}
-.login-win { margin: auto; padding: 100px 0 0; width: 250px; }
-/*.login-win input { border: solid 1px #F00; }*/
+.login-win { border: 1px solid #333333; border-radius: 8px; margin: 100px auto 0; width: 250px; box-shadow: 5px 5px 10px #333333; padding: 10px; }
+.login-win input[type=text], .login-win input[type=password] { height:20px; width: 248px; margin: 5px 0 10px; }
+.login-win input[type=text]:focus, .login-win input[type=password]:focus { box-shadow: 0 0 5px #00F; }
+#remember_user { margin-bottom: 10px; }
+.login-win input[type=submit] { width: 150px; }
+.login-win a { float: right; line-height: 24px; }
+.error-msg { color: #F00; margin-bottom: 5px; }
+
 
 .order-list { width: 250px; border-collapse: collapse; }
 

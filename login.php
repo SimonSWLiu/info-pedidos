@@ -34,13 +34,10 @@ if ($_POST) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>用户登录</title>
 <link type="text/css" rel="stylesheet" href="styles/global.css" />
-<script type="text/javascript" src="scripts/cookies.js"></script>
-<!--<script type="text/javascript" src="scripts/jquery.js"></script>-->
-<!--<script type="text/javascript" src="scripts/global.js"></script>-->
 </head>
 <body>
 <div class="login-win">
-	<span><?php echo isset($_GET['msg'])? $_GET['msg']:''; ?></span>
+	<div class="error-msg"><?php echo isset($_GET['msg'])? $_GET['msg']:''; ?></div>
 	<form action="" method="post" onsubmit="return beforeSubmit()">
 		<label for="user">用户名或邮箱: </label><br /><input type="text" name="user" id="user" /><br />
 		<label for="pwd">密码: </label><br /><input type="password" name="pwd" id="pwd" /><br />
@@ -49,6 +46,7 @@ if ($_POST) {
 		<a href="reg.php">注册</a>
 	</form>
 </div>
+<script type="text/javascript" src="scripts/cookies.js"></script>
 <script type="text/javascript">
 window.onload = function() {
 	var user = document.getElementById('user');
