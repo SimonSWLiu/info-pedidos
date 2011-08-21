@@ -41,10 +41,6 @@ if ($_POST) {
 	setcookie ( 'pedidos', $pedidos, time () + 41400 );
 	exit ( '<script>parent.location.href="pedidos.php"</script>' );
 	
-	
-	
-	
-	
 //	if ($_POST ['step'] == 4) {
 //		$menuArr = ( array ) $_POST ['selectMenu']; // 获取提交的菜式
 //		
@@ -128,7 +124,7 @@ $notice_content = $notice_arr['notice_content'];
 </head>
 <body>
 	<?php if ($notice_content) echo '<div class="notice">'.nl2br($notice_content).'</div>'; ?>
-	<div>
+	<div class="restaurant-select">
 		<label>餐厅：
 			<select name="restaurant_name" id="restaurant_name">
 				<?php foreach($rest as $key=>$row): ?>
@@ -158,14 +154,16 @@ $notice_content = $notice_arr['notice_content'];
 			<th>说明</th>
 			<th>操作</th>
 		</tr>
-		<?php foreach ( $menus as $mKey => $mArr ) : ?>
+		<?php foreach ( $menus as $mKey => $mArr ) :
+			if($mArr['cat_id']==$catKey): ?>
 		<tr>
 			<td><?php echo $mArr ['m_name']; ?></td>
 			<td><?php echo '￥' . number_format($mArr ['m_price'], 2, '.', ','); ?></td>
 			<td><?php echo $mArr ['m_note']; ?></td>
 			<td><form action="menu.php" method="post"><input type="hidden" name="menu_id" value="<?php echo $mKey; ?>" /><input type="submit" value="提交" /></td></form>
 		</tr>
-		<?php endforeach;
+		<?php endif;
+		endforeach;
 			endforeach; ?>
 	</table>
 	</div>
