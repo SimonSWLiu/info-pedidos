@@ -16,7 +16,7 @@ $pedidos = array();
 $sql = "SELECT balance FROM members WHERE mid='{$_SESSION['login']['mid']}'";
 $result = $db->query($sql);
 $balanceArr = $result->fetch_assoc();
-$balance = $balanceArr['balance'];
+$balance = round($balanceArr['balance'], 2);
 if ($menus) {
 	foreach ($menus as $row) {
 		$sql = "SELECT * FROM menu WHERE menu_id='{$row['menu_id']}'";

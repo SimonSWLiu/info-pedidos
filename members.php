@@ -60,7 +60,7 @@ while ($row = $result->fetch_assoc()) {
 				}
 			?>
 			</td>
-			<td><?php echo $row['balance']; ?></td>
+			<td><?php echo round($row['balance'], 2); ?></td>
 			<td>
 				<a href="recharge.php?mid=<?php echo $row['mid']; ?>">充值</a>
 				<a href="resetpwd.php?mid=<?php echo $row['mid']; ?>" onClick="if (!confirm('确定要重置密码?')) return false;">重置密码</a>
