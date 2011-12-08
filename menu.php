@@ -39,7 +39,7 @@ if ($_POST) {
 		$pedidos .= $row ['menu_id'] . ':' . $row ['menu_count'] . ';';
 	}
 	setcookie ( 'pedidos', $pedidos, time () + 41400 );
-	exit ( '<script>parent.location.href="pedidos.php"</script>' );
+	exit ( '<script>parent.location.href="pedidos.php?from=' . urlencode($_SERVER['HTTP_REFERER']) . '"</script>' );
 	
 //	if ($_POST ['step'] == 4) {
 //		$menuArr = ( array ) $_POST ['selectMenu']; // 获取提交的菜式

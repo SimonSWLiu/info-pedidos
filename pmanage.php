@@ -109,6 +109,13 @@ if ($result) {
 	$deliveryId = $row['mid'];
 }
 
+// 查询外卖电话
+$phones = array();
+$sql = 'SELECT r_name,phone FROM restaurant';
+$result = mysqli_query($db, $sql);
+while ($row = mysqli_fetch_assoc($result)) {
+	$phones[] = $row;
+}
 
 mysqli_close($db);
 ?>
@@ -211,6 +218,21 @@ mysqli_close($db);
 				<td colspan="2">总价</td>
 				<td colspan="4"><?php echo $totalPrice; ?></td>
 			</tr>
+		</table>
+	</div>
+	<br /><hr /><br />
+	<div>
+		<table border="1">
+			<tr>
+				<td>餐厅名</td>
+				<td>电话</td>
+			</tr>
+			<?php foreach ($phones as $row): ?>
+			<tr>
+				<td><?php echo $row['r_name']; ?></td>
+				<td><?php echo $row['phone']; ?></td>
+			</tr>
+			<?php endforeach; ?>
 		</table>
 	</div>
 <script type="text/javascript" src="scripts/jquery.js"></script>
