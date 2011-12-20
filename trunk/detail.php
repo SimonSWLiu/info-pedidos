@@ -2,7 +2,7 @@
 include 'config.php';
 include 'db.php';
 permission(2);
-$sql = "SELECT * FROM log LEFT OUTER JOIN members ON log.mid=members.mid";
+$sql = "SELECT * FROM log LEFT OUTER JOIN members ON log.mid=members.mid ORDER BY edit_time DESC";
 $result = mysqli_query($db, $sql);
 $detailArr = array();
 while($row = mysqli_fetch_assoc($result)) {
